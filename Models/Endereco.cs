@@ -17,5 +17,7 @@ namespace Academia.Models {
         public string Cidade { get; set; }
 
         public string UF { get; set; }
+
+        public string Complemento { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using Academia.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Academia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191107180631_AddColunaComplementoEndereco")]
+    partial class AddColunaComplementoEndereco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -146,11 +148,11 @@ namespace Academia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Admissao");
+                    b.Property<DateTime>("Admissão");
 
                     b.Property<DateTime>("DataNascimento");
 
-                    b.Property<DateTime?>("Demissao");
+                    b.Property<DateTime?>("Demissão");
 
                     b.Property<string>("Email");
 

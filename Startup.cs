@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Academia.Database;
 using Academia.Libraries.Login;
 using Academia.Libraries.Session;
+using Academia.Repositories;
+using Academia.Repositories.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -30,6 +32,12 @@ namespace Academia {
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddMemoryCache();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(120);
+            });
+            services.AddHttpContextAccessor();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddDbContext<ApplicationDbContext>(option => 
@@ -39,6 +47,7 @@ namespace Academia {
             services.AddScoped<Sessao>();
             services.AddScoped<LoginAluno>();
             services.AddScoped<LoginProfessor>();
+            services.AddScoped<IProfessorRepository, ProfessorRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,8 +63,15 @@ namespace Academia {
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+            app.UseSession();
 
             app.UseMvc(routes => {
+                //Rota para quando há áreas.
+                routes.MapRoute(
+                    name: "areas",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
+                //Rota padrão.
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

@@ -10,8 +10,8 @@ namespace Academia.Repositories.Interfaces {
 
         void Cadastrar(T obj);
         void Editar(T obj);
-        void Excluir(long id);
-        T Buscar(long id);
+        void Excluir(int id);
+        T Buscar(int id);
         List<T> Listar();
         IPagedList<T> Listar(int? pagina);
 

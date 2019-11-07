@@ -9,23 +9,23 @@ using System.Threading.Tasks;
 using X.PagedList;
 
 namespace Academia.Repositories {
-    public class ProfessorRepository : IProfessorRepository {
+    public class AlunoRepository : IAlunoRepository {
 
         private readonly ApplicationDbContext _dbContext;
-        public ProfessorRepository(ApplicationDbContext dbContext) {
+        public AlunoRepository(ApplicationDbContext dbContext) {
             _dbContext = dbContext;
         }
 
-        public Professor Buscar(int id) {
-            return _dbContext.Professores.Find(id);
+        public Aluno Buscar(int id) {
+            return _dbContext.Alunos.Find(id);
         }
 
-        public void Cadastrar(Professor obj) {
+        public void Cadastrar(Aluno obj) {
             _dbContext.Add(obj);
             _dbContext.SaveChanges();
         }
 
-        public void Editar(Professor obj) {
+        public void Editar(Aluno obj) {
             _dbContext.Update(obj);
             _dbContext.SaveChanges();
         }
@@ -36,16 +36,16 @@ namespace Academia.Repositories {
             _dbContext.SaveChanges();
         }
 
-        public List<Professor> Listar() {
-            return _dbContext.Professores.AsNoTracking().ToList();
+        public List<Aluno> Listar() {
+            return _dbContext.Alunos.AsNoTracking().ToList();
         }
 
-        public IPagedList<Professor> Listar(int? pagina) {
-            return _dbContext.Professores.ToPagedList();
+        public IPagedList<Aluno> Listar(int? pagina) {
+            return _dbContext.Alunos.ToPagedList();
         }
 
-        public Professor Login(string email, string senha) {
-            return _dbContext.Professores.Where(p => p.Email.Equals(email) && p.Senha.Equals(senha)).FirstOrDefault();
+        public Aluno Login(string email, string senha) {
+            return _dbContext.Alunos.Where(p => p.Email.Equals(email) && p.Senha.Equals(senha)).FirstOrDefault();
         }
 
     }
