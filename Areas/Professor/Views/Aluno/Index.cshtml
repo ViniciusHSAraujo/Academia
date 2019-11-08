@@ -1,12 +1,12 @@
-﻿@model IEnumerable<Academia.Models.Professor>
+﻿@model IEnumerable<Academia.Models.Aluno>
 
 @{
-    ViewData["Title"] = "Funcionários";
+    ViewData["Title"] = "Index";
 }
 <div class="card-box mt-3">
-    <h4 class="header-title">Funcionários</h4>
+    <h4 class="header-title">Alunos</h4>
     <p class="sub-header">
-        Funcionários cadastrados no sistema.
+        Alunos cadastrados no sistema.
     </p>
 
     <div class="table-responsive">
@@ -17,13 +17,16 @@
                         @Html.DisplayNameFor(model => model.Nome)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Turno)
+                        @Html.DisplayNameFor(model => model.DataNascimento)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Telefone)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
                     </th>
                     <th>Ações</th>
                 </tr>
@@ -35,7 +38,7 @@
                             @Html.DisplayFor(modelItem => item.Nome)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Turno)
+                            @item.DataNascimento.ToShortDateString()
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Telefone)
@@ -44,9 +47,12 @@
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
                         <td>
-                            @Html.ActionLink("Editar", "Editar", "Professor", new { Area = "Professor", item.Id }, new { @class = "btn btn-warning btn-rounded" })
-                            @Html.ActionLink("Detalhar", "Detalhar", new { Area = "Professor", item.Id }, new { @class = "btn btn-info btn-rounded" })
-                            <form asp-controller="Professor" asp-action="Excluir" method="post" style="display: inline">
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Editar", new { item.Id }, new { @class = "btn btn-warning btn-rounded" })
+                            @Html.ActionLink("Detalhar", "Detalhar", new { item.Id }, new { @class = "btn btn-info btn-rounded" })
+                            <form asp-controller="Aluno" asp-action="Excluir" method="post" style="display: inline">
                                 <input name="id" value="@item.Id" class="form-control" hidden />
                                 <input type="submit" value="Excluir" class="btn btn-danger btn-rounded" />
                             </form>

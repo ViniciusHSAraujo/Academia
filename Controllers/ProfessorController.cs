@@ -40,9 +40,19 @@ namespace Academia.Controllers {
         public IActionResult Cadastrar([FromBody]Professor professor) {
             if (ModelState.IsValid) {
                 _professorRepository.Cadastrar(professor);
-                return Ok(new { Msg = $"O professor {professor.Nome} foi cadastrado com sucesso!" });
+                return Ok(new { msg = $"O professor {professor.Nome} foi cadastrado com sucesso!" });
             } else {
-                return BadRequest(new { Msg = $"Há algo de errado na requisição, verifique e tente novamente." });
+                return BadRequest(new { msg = $"Há algo de errado na requisição, verifique e tente novamente." });
+            }
+        }
+
+        [HttpPatch]
+        public IActionResult Editar([FromBody]Professor professor) {
+            if (ModelState.IsValid) {
+                _professorRepository.Editar(professor);
+                return Ok(new { msg = $"O cadastro do professor {professor.Nome} foi editado         com sucesso!" });
+            } else {
+                return BadRequest(new { msg = $"Há algo de errado na requisição, verifique e tente novamente." });
             }
         }
     }

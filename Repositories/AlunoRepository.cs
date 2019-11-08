@@ -17,7 +17,7 @@ namespace Academia.Repositories {
         }
 
         public Aluno Buscar(int id) {
-            return _dbContext.Alunos.Find(id);
+            return _dbContext.Alunos.Include(a => a.Endereco).SingleOrDefault(a => a.Id == id);
         }
 
         public void Cadastrar(Aluno obj) {

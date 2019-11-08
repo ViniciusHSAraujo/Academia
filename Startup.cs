@@ -48,6 +48,7 @@ namespace Academia {
             services.AddScoped<LoginAluno>();
             services.AddScoped<LoginProfessor>();
             services.AddScoped<IProfessorRepository, ProfessorRepository>();
+            services.AddScoped<IAlunoRepository, AlunoRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

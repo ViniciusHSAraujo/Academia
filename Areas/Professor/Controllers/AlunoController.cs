@@ -20,7 +20,8 @@ namespace Academia.Areas.Aluno.Controllers {
         }
 
         public IActionResult Index() {
-            return View();
+            var alunos = _alunoRepository.Listar();
+            return View(alunos);
         }
 
         public IActionResult Cadastrar() {
@@ -32,5 +33,9 @@ namespace Academia.Areas.Aluno.Controllers {
             return View(aluno);
         }
 
+        public IActionResult Detalhar(int id) {
+            var aluno = _alunoRepository.Buscar(id);
+            return View(aluno);
+        }
     }
 }

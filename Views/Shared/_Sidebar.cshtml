@@ -33,6 +33,38 @@
                     </ul>
                 </li>
 
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="la la-briefcase"></i>
+                        <span> Professor </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a asp-controller="Professor" asp-action="Index" asp-area="Professor">Listar</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Professor" asp-action="Cadastrar" asp-area="Professor">Cadastrar</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="la la-briefcase"></i>
+                        <span> Aluno </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a asp-controller="Aluno" asp-action="Index" asp-area="Professor">Listar</a>
+                        </li>
+                        <li>
+                            <a asp-controller="Aluno" asp-action="Cadastrar" asp-area="Professor">Cadastrar</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li class="menu-title mt-2">Titulo</li>
 
             </ul>
