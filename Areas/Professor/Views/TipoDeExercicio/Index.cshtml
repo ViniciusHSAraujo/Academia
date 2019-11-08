@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Academia.Models.TipoExercicio>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="card-box mt-3">
+    <h4 class="header-title">Tipos de Exercícios</h4>
+    <p class="sub-header">
+        Tipos de exercícios cadastrados no sistema.
+    </p>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nome)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GrupoMuscular)
+                    </th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nome)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GrupoMuscular)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "Editar", new { item.Id }, new { @class = "btn btn-warning btn-rounded" })
+                            @Html.ActionLink("Detalhar", "Detalhar", new { item.Id }, new { @class = "btn btn-info btn-rounded" })
+                            <form asp-controller="Aluno" asp-action="Excluir" method="post" style="display: inline">
+                                <input name="id" value="@item.Id" class="form-control" hidden />
+                                <input type="submit" value="Excluir" class="btn btn-danger btn-rounded" />
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

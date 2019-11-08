@@ -18,7 +18,7 @@ namespace Academia.Controllers {
         }
 
         [HttpPost]
-        public IActionResult Cadastrar([FromBody]Aluno aluno) {
+        public IActionResult Post([FromBody]Aluno aluno) {
             if (ModelState.IsValid) {
                 _alunoRepository.Cadastrar(aluno);
                 return Ok(new { msg = $"O aluno {aluno.Nome} foi cadastrado com sucesso!" });
@@ -28,7 +28,7 @@ namespace Academia.Controllers {
         }
 
         [HttpPatch]
-        public IActionResult Editar([FromBody]Aluno aluno) {
+        public IActionResult Patch([FromBody]Aluno aluno) {
             if (ModelState.IsValid) {
                 _alunoRepository.Editar(aluno);
                 return Ok(new { msg = $"O cadastro do aluno {aluno.Nome} foi editado com sucesso!" });

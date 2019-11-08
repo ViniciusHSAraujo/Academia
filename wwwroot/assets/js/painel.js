@@ -78,6 +78,7 @@ $("#frmCadastroProfessor").on("submit", function (event) {
                 `${dados.msg}`,
                 'success',
             );
+            $('#frmCadastroProfessor')[0].reset();
         },
         error: function (dados) {
             Swal.fire(
@@ -89,7 +90,6 @@ $("#frmCadastroProfessor").on("submit", function (event) {
     });
 
     $("#btnEnviarRequisicao").attr("disabled", false)
-    $('#frmCadastroProfessor')[0].reset();
 });
 
 /*
@@ -173,7 +173,8 @@ $("#frmCadastroAluno").on("submit", function (event) {
             Bairro: $("#Endereco_Bairro").val(),
             Cidade: $("#Endereco_Cidade").val(),
             UF: $("#Endereco_UF").val()
-        }
+        },
+        Status: $("#Status").is(':checked')
     }
 
     $.ajax({
@@ -188,6 +189,7 @@ $("#frmCadastroAluno").on("submit", function (event) {
                 `${dados.msg}`,
                 'success',
             );
+            $('#frmCadastroAluno')[0].reset();
         },
         error: function (dados) {
             Swal.fire(
@@ -199,7 +201,6 @@ $("#frmCadastroAluno").on("submit", function (event) {
     });
 
     $("#btnEnviarRequisicao").attr("disabled", false)
-    $('#frmCadastroAluno')[0].reset();
 });
 
 /*
@@ -227,7 +228,8 @@ $("#frmEdicaoAluno").on("submit", function (event) {
             Bairro: $("#Endereco_Bairro").val(),
             Cidade: $("#Endereco_Cidade").val(),
             UF: $("#Endereco_UF").val()
-        }
+        },
+        Status: $("#Status").is(':checked')
     }
 
     $.ajax({
@@ -255,3 +257,81 @@ $("#frmEdicaoAluno").on("submit", function (event) {
     $("#btnEnviarRequisicao").attr("disabled", false);
 });
 
+/*
+ * Cadastrar Tipo de Exercício
+ */
+
+$("#frmCadastroTipoDeExercicio").on("submit", function (event) {
+    event.preventDefault();
+    $("#btnEnviarRequisicao").attr("disabled", true)
+
+    var tipoDeExercicio = {
+        Id: $("#Id").val(),
+        Nome: $("#Nome").val(),
+        GrupoMuscular: $("#GrupoMuscular").val()
+    }
+
+    $.ajax({
+        type: "post",
+        url: `${enderecoAPI}/TipoDeExercicio`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(tipoDeExercicio),
+        success: function (dados) {
+            Swal.fire(
+                `Sucesso!`,
+                `${dados.msg}`,
+                'success',
+            );
+            $('#frmCadastroTipoExercicio')[0].reset();
+        },
+        error: function (dados) {
+            Swal.fire(
+                `Oops! Há algo de errado`,
+                `${dados.responseJSON.msg}`,
+                'error',
+            );
+        }
+    });
+
+    $("#btnEnviarRequisicao").attr("disabled", false)
+});
+
+/*
+ * Editar Tipo de Exercício
+ */
+
+$("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
+    event.preventDefault();
+    $("#btnEnviarRequisicao").attr("disabled", true)
+
+    var tipoDeExercicio = {
+        Id: $("#Id").val(),
+        Nome: $("#Nome").val(),
+        GrupoMuscular: $("#GrupoMuscular").val()
+    }
+
+    $.ajax({
+        type: "patch",
+        url: `${enderecoAPI}/TipoDeExercicio`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(tipoDeExercicio),
+        success: function (dados) {
+            Swal.fire(
+                `Sucesso!`,
+                `${dados.msg}`,
+                'success',
+            );
+        },
+        error: function (dados) {
+            Swal.fire(
+                `Oops! Há algo de errado`,
+                `${dados.responseJSON.msg}`,
+                'error',
+            );
+        }
+    });
+
+    $("#btnEnviarRequisicao").attr("disabled", false)
+});

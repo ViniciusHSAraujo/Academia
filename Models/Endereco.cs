@@ -1,3 +1,4 @@
+using Academia.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,8 +17,9 @@ namespace Academia.Models {
 
         public string Cidade { get; set; }
 
-        public string UF { get; set; }
+        public UnidadeFederativa UF { get; set; }
 
         public string Complemento { get; set; }
     }
 }
+

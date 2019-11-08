@@ -1,3 +1,4 @@
+using Academia.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Academia.Models {
 
         public string Nome { get; set; }
 
-        public string GrupoMuscular { get; set; }
+        public GrupoMuscular GrupoMuscular { get; set; }
     }
 }

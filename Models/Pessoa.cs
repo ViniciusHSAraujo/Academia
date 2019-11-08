@@ -1,3 +1,4 @@
+using Academia.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Academia.Models {
 
         public string Telefone { get; set; }
 
-        public char Sexo { get; set; }
+        public Sexo Sexo { get; set; }
 
         public string Email { get; set; }
 

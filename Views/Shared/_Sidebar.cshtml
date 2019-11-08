@@ -13,25 +13,12 @@
                 <li>
                     <a href="widgets.html">
                         <i class="la la-coffee"></i>
-                        <span> Menu 1 </span>
+                        <span> Dashboard </span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="javascript: void(0);">
-                        <i class="la la-briefcase"></i>
-                        <span> Menu 2 com Submenu </span>
-                        <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="nav-second-level" aria-expanded="false">
-                        <li>
-                            <a href="ui-buttons.html">Submenu 1</a>
-                        </li>
-                        <li>
-                            <a href="ui-buttons.html">Submenu 2</a>
-                        </li>
-                    </ul>
-                </li>
+                <li class="menu-title mt-2">Pessoa</li>
+
 
                 <li>
                     <a href="javascript: void(0);">
@@ -65,7 +52,23 @@
                     </ul>
                 </li>
 
-                <li class="menu-title mt-2">Titulo</li>
+                <li class="menu-title mt-2">Exercícios</li>
+
+                <li>
+                    <a href="javascript: void(0);">
+                        <i class="la la-user"></i>
+                        <span> Tipo de Exercício </span>
+                        <span class="menu-arrow"></span>
+                    </a>
+                    <ul class="nav-second-level" aria-expanded="false">
+                        <li>
+                            <a asp-controller="TipoDeExercicio" asp-action="Index" asp-area="Professor">Listar</a>
+                        </li>
+                        <li>
+                            <a asp-controller="TipoDeExercicio" asp-action="Cadastrar" asp-area="Professor">Cadastrar</a>
+                        </li>
+                    </ul>
+                </li>
 
             </ul>
 
