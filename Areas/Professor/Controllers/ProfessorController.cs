@@ -33,5 +33,9 @@ namespace Academia.Areas.Professor.Controllers {
             return View(professor);
         }
 
+        public IActionResult Detalhar(int id) {
+            var professor = _professorRepository.Buscar(id);
+            return View(professor);
+        }
     }
 }
