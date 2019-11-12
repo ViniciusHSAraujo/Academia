@@ -374,15 +374,35 @@ $("#btnAdicionarAgrupamento").click(function () {
 
 $("#btnAdicionarExercicio").click(function () {
     var agrupamento = $("#Exercicio_Agrupamento").prop('selectedIndex') - 1;
-    var tipoDeExercicio = $("#Exercicio_TipoExercicio option:selected").val();
-    var tipoDeExercicioText = $("#Exercicio_TipoExercicio option:selected").html();
-    var series = $("#Exercicio_Serie").val();
-    var repeticoes = $("#Exercicio_Repeticao").val();
+    var agrupamentoText = $("#Exercicio_Agrupamento option:selected").html();
+    var tipoExercicioId = $("#Exercicio_TipoExercicio option:selected").val();
+    var tipoExercicioText = $("#Exercicio_TipoExercicio option:selected").html();
+    var serie = $("#Exercicio_Serie").val();
+    var repeticao = $("#Exercicio_Repeticao").val();
 
+    if (agrupamento == -1) {
+        PopUpDeAlerta("Nenhum agrupamento foi selecionado!");
+        return false;
+    }
+
+    if (tipoExercicioId == "") {
+        PopUpDeAlerta("Nenhum tipo de exercício foi selecionado!");
+        return false;
+    }
+
+    if (serie == "") {
+        PopUpDeAlerta("Nenhuma série foi definida!");
+        return false;
+    }
+
+    if (repeticao == "") {
+        PopUpDeAlerta("Nenhuma repetição foi definida!");
+        return false;
+    }
     let exercicio = {
-        TipoDeExercicio: tipoDeExercicio,
-        Series: series,
-        Repeticoes: repeticoes
+        TipoExercicioId: tipoExercicioId,
+        Serie: serie,
+        Repeticao: repeticao
     };
 
     listaDeAgrupamentos[agrupamento].Exercicios.push(exercicio);
@@ -391,8 +411,8 @@ $("#btnAdicionarExercicio").click(function () {
 
     $("#tblExerciciosBody").append(`
     <tr>
-        <td>${exercicio.Agrupamento}</td>
-        <td>${tipoDeExercicioText}</td>
+        <td>${agrupamentoText}</td>
+        <td>${tipoExercicioText}</td>
         <td>${exercicio.Series}</td>
         <td>${exercicio.Repeticoes}</td>
         <td><button class="btn btn-danger remover-exercicio" id="excluir">Excluir</button></td>
@@ -430,23 +450,20 @@ $("#frmCadastroTreino").on("submit", function (event) {
         AlunoId: $("#Treino_Aluno").val(),
         ProfessorId: $("#Treino_Professor").val(),
         Objetivo: $("#Treino_Objetivo").val(),
-        DataInicio: $("#Treino_DataInicio").val(),
-        DataFim: $("#Treino_DataFim").val()
+        DataInicio: moment($("#Treino_DataInicio")).format("YYYY-MM-DD HH:mm:ss"),
+        DataFim: moment($("#Treino_DataFim")).format("YYYY-MM-DD HH:mm:ss"),
+        Agrupamentos: listaDeAgrupamentos
     };
 
     $.ajax({
         type: "post",
-        url: `${enderecoAPI}/aluno`,
+        url: `${enderecoAPI}/treino`,
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(aluno),
+        data: JSON.stringify(treino),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
-            $('#frmCadastroAluno')[0].reset();
+            PopUpDeSucesso(dados.msg)
+            $('#frmCadastroTreino')[0].reset();
         },
         error: function (dados) {
             Swal.fire(
@@ -459,3 +476,39 @@ $("#frmCadastroTreino").on("submit", function (event) {
 
     $("#btnEnviarRequisicao").attr("disabled", false)
 });
+
+/**
+ * Retorna na tela um pop-up de alerta na tela do usuário.
+ */
+
+function PopUpDeAlerta(mensagem) {
+    Swal.fire(
+        `Atenção!`,
+        `${mensagem}`,
+        'warning',
+    );
+}
+
+/**
+ * Retorna na tela um pop-up de erro na tela do usuário.
+ */
+
+function PopUpDeErro(mensagem) {
+    Swal.fire(
+        `Atenção!`,
+        `${mensagem}`,
+        'Erro',
+    );
+}
+
+/**
+ * Retorna na tela um pop-up de alerta na tela do usuário.
+ */
+
+function PopUpDeSucesso(mensagem) {
+    Swal.fire(
+        `Sucesso!`,
+        `${mensagem}`,
+        'success',
+    );
+}

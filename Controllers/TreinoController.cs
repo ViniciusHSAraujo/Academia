@@ -21,9 +21,9 @@ namespace Academia.Controllers {
         public IActionResult Post([FromBody]Treino treino) {
             if (ModelState.IsValid) {
                 _treinoRepository.Cadastrar(treino);
-                return Ok(new { msg = $"O treino do aluno {treino.Aluno.Nome} foi cadastrado com sucesso!" });
+                return Ok(new { msg = $"O treino do aluno foi cadastrado com sucesso!" });
             } else {
-                return BadRequest(new { msg = $"Há algo de errado na requisição, verifique e tente novamente." });
+                return BadRequest();
             }
         }
 
