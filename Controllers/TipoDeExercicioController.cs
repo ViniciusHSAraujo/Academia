@@ -28,7 +28,7 @@ namespace Academia.Controllers {
         }
 
         [HttpPatch]
-        public IActionResult Patch([FromBody]TipoExercicio tipoExercicio) {
+        public IActionResult Put([FromBody]TipoExercicio tipoExercicio) {
             if (ModelState.IsValid) {
                 _tipoDeExercicioRepository.Editar(tipoExercicio);
                 return Ok(new { msg = $"O cadastro do tipo de exercício {tipoExercicio.Nome} foi editado com sucesso!" });

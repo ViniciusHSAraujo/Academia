@@ -8,7 +8,7 @@ namespace Academia.Models {
 
         public int Id { get; set; }
 
-        public char Tipo { get; set; }
+        public string Descricao { get; set; }
 
         public virtual List<Exercicio> Exercicios { get; set; }
 

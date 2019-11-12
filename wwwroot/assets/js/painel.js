@@ -4,6 +4,9 @@
 var enderecoSite = "https://localhost:5001";
 var enderecoAPI = "https://localhost:5001/api/v1";
 
+var listaDeExercicios = [];
+var listaDeAgrupamentos = [];
+
 /*
  * Login no sistema
  */
@@ -124,7 +127,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
     }
 
     $.ajax({
-        type: "Patch",
+        type: "Put",
         url: `${enderecoAPI}/professor`,
         dataType: "json",
         contentType: "application/json",
@@ -233,7 +236,7 @@ $("#frmEdicaoAluno").on("submit", function (event) {
     }
 
     $.ajax({
-        type: "Patch",
+        type: "Put",
         url: `${enderecoAPI}/aluno`,
         dataType: "json",
         contentType: "application/json",
@@ -323,6 +326,127 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
                 `${dados.msg}`,
                 'success',
             );
+        },
+        error: function (dados) {
+            Swal.fire(
+                `Oops! Há algo de errado`,
+                `${dados.responseJSON.msg}`,
+                'error',
+            );
+        }
+    });
+
+    $("#btnEnviarRequisicao").attr("disabled", false)
+});
+
+/**
+ * Quando o botão de Adicionar agrupamento é clicado
+ */
+
+$("#btnAdicionarAgrupamento").click(function () {
+    $(".selectpicker").selectpicker();
+    var descricao = $("#Agrupamento_Descricao").val();
+
+    let agrupamento = {
+        Descricao: descricao,
+        Exercicios: []
+    };
+
+    listaDeAgrupamentos.push(agrupamento);
+
+    $("#tblAgrupamentoBody").append(`
+    <tr>
+        <td>${agrupamento.Descricao}</td>
+        <td><button class="btn btn-danger remover-exercicio" id="excluir">Excluir</button></td>
+    </tr>`);
+
+    let option = document.createElement('option');
+
+    $('#Exercicio_Agrupamento').append($(option).attr('value', agrupamento.Descricao).html(agrupamento.Descricao));
+    $('.selectpicker').selectpicker('refresh');
+
+    limparFormAgrupamentos();
+});
+
+/**
+ * Quando o botão de Adicionar exercício é clicado
+ */
+
+$("#btnAdicionarExercicio").click(function () {
+    var agrupamento = $("#Exercicio_Agrupamento").prop('selectedIndex') - 1;
+    var tipoDeExercicio = $("#Exercicio_TipoExercicio option:selected").val();
+    var tipoDeExercicioText = $("#Exercicio_TipoExercicio option:selected").html();
+    var series = $("#Exercicio_Serie").val();
+    var repeticoes = $("#Exercicio_Repeticao").val();
+
+    let exercicio = {
+        TipoDeExercicio: tipoDeExercicio,
+        Series: series,
+        Repeticoes: repeticoes
+    };
+
+    listaDeAgrupamentos[agrupamento].Exercicios.push(exercicio);
+
+    listaDeExercicios.push(exercicio);
+
+    $("#tblExerciciosBody").append(`
+    <tr>
+        <td>${exercicio.Agrupamento}</td>
+        <td>${tipoDeExercicioText}</td>
+        <td>${exercicio.Series}</td>
+        <td>${exercicio.Repeticoes}</td>
+        <td><button class="btn btn-danger remover-exercicio" id="excluir">Excluir</button></td>
+    </tr>`);
+
+    limparFormExercicios();
+});
+
+/**
+ * Reseta todos os campos do form de exercícios. 
+ */
+function limparFormExercicios() {
+    $('#Exercicio_Agrupamento').prop("selectedIndex", 0).change();
+    $('#Exercicio_TipoExercicio').prop("selectedIndex", 0).change();
+    $("#Exercicio_Serie").val("");
+    $("#Exercicio_Repeticao").val("");
+}
+
+/**
+ * Reseta todos os campos do form de agrupamentos. 
+ */
+function limparFormAgrupamentos() {
+    $("#Agrupamento_Descricao").val("");
+}
+
+/*
+ * Cadastrar treino
+ */
+
+$("#frmCadastroTreino").on("submit", function (event) {
+    event.preventDefault();
+    $("#btnEnviarRequisicao").attr("disabled", true)
+
+    var treino = {
+        AlunoId: $("#Treino_Aluno").val(),
+        ProfessorId: $("#Treino_Professor").val(),
+        Objetivo: $("#Treino_Objetivo").val(),
+        DataInicio: $("#Treino_DataInicio").val(),
+        DataFim: $("#Treino_DataFim").val()
+    };
+
+    $.ajax({
+        type: "post",
+        url: `${enderecoAPI}/aluno`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(aluno),
+        success: function (dados) {
+            Swal.fire(
+                `Sucesso!`,
+                `${dados.msg}`,
+                'success',
+            );
+            $('#frmCadastroAluno')[0].reset();
         },
         error: function (dados) {
             Swal.fire(

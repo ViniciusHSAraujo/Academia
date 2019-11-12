@@ -1,3 +1,4 @@
+using Academia.Models.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Academia.Models {
 
         public virtual Professor Professor { get; set; }
 
-        public string Objetivo { get; set; }
+        public Objetivo Objetivo { get; set; }
 
         public DateTime DataInicio { get; set; }
 

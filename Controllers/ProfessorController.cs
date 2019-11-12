@@ -46,8 +46,8 @@ namespace Academia.Controllers {
             }
         }
 
-        [HttpPatch]
-        public IActionResult Patch([FromBody]Professor professor) {
+        [HttpPut]
+        public IActionResult Put([FromBody]Professor professor) {
             if (ModelState.IsValid) {
                 _professorRepository.Editar(professor);
                 return Ok(new { msg = $"O cadastro do professor {professor.Nome} foi editado         com sucesso!" });
