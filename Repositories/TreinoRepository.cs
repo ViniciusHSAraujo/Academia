@@ -17,7 +17,7 @@ namespace Academia.Repositories {
         }
 
         public Treino Buscar(int id) {
-            return _dbContext.Treinos.AsNoTracking().SingleOrDefault(t => t.Id == id);
+            return _dbContext.Treinos.AsNoTracking().Include(t => t.Aluno).Include(t => t.Professor).SingleOrDefault(t => t.Id == id);
         }
 
         public void Cadastrar(Treino obj) {
@@ -37,7 +37,7 @@ namespace Academia.Repositories {
         }
 
         public List<Treino> Listar() {
-            return _dbContext.Treinos.AsNoTracking().ToList();
+            return _dbContext.Treinos.AsNoTracking().Include(t => t.Aluno).Include(t => t.Professor).ToList();
         }
 
         public IPagedList<Treino> Listar(int? pagina) {

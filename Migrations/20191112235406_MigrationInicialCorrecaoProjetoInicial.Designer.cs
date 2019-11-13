@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Academia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191109012720_AjusteTabelaAgrupamentoTipoDescricao")]
-    partial class AjusteTabelaAgrupamentoTipoDescricao
+    [Migration("20191112235406_MigrationInicialCorrecaoProjetoInicial")]
+    partial class MigrationInicialCorrecaoProjetoInicial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,19 +48,25 @@ namespace Academia.Migrations
 
                     b.Property<DateTime>("DataNascimento");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<int?>("EnderecoId");
+                    b.Property<int>("EnderecoId");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(80);
 
-                    b.Property<string>("Senha");
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
                     b.Property<int>("Sexo");
 
                     b.Property<bool>("Status");
 
-                    b.Property<string>("Telefone");
+                    b.Property<string>("Telefone")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -106,7 +112,7 @@ namespace Academia.Migrations
 
                     b.Property<int>("Serie");
 
-                    b.Property<int?>("TipoExercicioId");
+                    b.Property<int>("TipoExercicioId");
 
                     b.HasKey("Id");
 
@@ -150,23 +156,27 @@ namespace Academia.Migrations
 
                     b.Property<DateTime?>("Demissao");
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<int?>("EnderecoId");
+                    b.Property<int>("EnderecoId");
 
-                    b.Property<string>("Nome");
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(80);
 
                     b.Property<double>("Salario");
 
-                    b.Property<string>("Senha");
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(32);
 
                     b.Property<int>("Sexo");
 
-                    b.Property<string>("Telefone");
+                    b.Property<string>("Telefone")
+                        .IsRequired();
 
-                    b.Property<string>("Turno")
-                        .IsRequired()
-                        .HasConversion(new ValueConverter<string, string>(v => default(string), v => default(string), new ConverterMappingHints(size: 1)));
+                    b.Property<int>("Turno");
 
                     b.HasKey("Id");
 
@@ -226,7 +236,8 @@ namespace Academia.Migrations
                 {
                     b.HasOne("Academia.Models.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Academia.Models.Exercicio", b =>
@@ -237,7 +248,8 @@ namespace Academia.Migrations
 
                     b.HasOne("Academia.Models.TipoExercicio", "TipoExercicio")
                         .WithMany()
-                        .HasForeignKey("TipoExercicioId");
+                        .HasForeignKey("TipoExercicioId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Academia.Models.HistoricoExercicio", b =>
@@ -251,7 +263,8 @@ namespace Academia.Migrations
                 {
                     b.HasOne("Academia.Models.Endereco", "Endereco")
                         .WithMany()
-                        .HasForeignKey("EnderecoId");
+                        .HasForeignKey("EnderecoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Academia.Models.Treino", b =>

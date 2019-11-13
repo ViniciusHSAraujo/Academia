@@ -8,12 +8,13 @@ namespace Academia.Models {
     public class Treino {
         public int Id { get; set; }
 
-        [ForeignKey("Aluno")]
-        public int AlunoId { get; set; }
+        public int? AlunoId { get; set; }
+
+        [ForeignKey("AlunoId")]
         public Aluno Aluno { get; set; }
 
-        [ForeignKey("Professor")]
-        public int ProfessorId { get; set; }
+        public int? ProfessorId { get; set; }
+        [ForeignKey("ProfessorId")]
         public Professor Professor { get; set; }
 
         public Objetivo Objetivo { get; set; }
@@ -22,6 +23,6 @@ namespace Academia.Models {
 
         public DateTime DataFim { get; set; }
 
-        public List<Agrupamento> Agrupamentos { get; set; }
+        public virtual List<Agrupamento> Agrupamentos { get; set; }
     }
 }

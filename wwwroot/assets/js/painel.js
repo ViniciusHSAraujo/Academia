@@ -1,4 +1,4 @@
-//var enderecoSite = "https://localhost:44354";
+Ôªø//var enderecoSite = "https://localhost:44354";
 //var enderecoAPI = "https://localhost:44354/api/v1";
 
 var enderecoSite = "https://localhost:5001";
@@ -29,11 +29,7 @@ $("#frmLogin").on("submit", function (event) {
             window.location.href = `${enderecoSite}/professor/`
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 });
@@ -76,19 +72,11 @@ $("#frmCadastroProfessor").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(professor),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
             $('#frmCadastroProfessor')[0].reset();
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -133,18 +121,10 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(professor),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -187,19 +167,11 @@ $("#frmCadastroAluno").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(aluno),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
             $('#frmCadastroAluno')[0].reset();
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -242,18 +214,10 @@ $("#frmEdicaoAluno").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(aluno),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -261,7 +225,7 @@ $("#frmEdicaoAluno").on("submit", function (event) {
 });
 
 /*
- * Cadastrar Tipo de ExercÌcio
+ * Cadastrar Tipo de Exerc√≠cio
  */
 
 $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
@@ -281,19 +245,11 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(tipoDeExercicio),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
             $('#frmCadastroTipoExercicio')[0].reset();
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -301,7 +257,7 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
 });
 
 /*
- * Editar Tipo de ExercÌcio
+ * Editar Tipo de Exerc√≠cio
  */
 
 $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
@@ -321,18 +277,10 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
         contentType: "application/json",
         data: JSON.stringify(tipoDeExercicio),
         success: function (dados) {
-            Swal.fire(
-                `Sucesso!`,
-                `${dados.msg}`,
-                'success',
-            );
+            PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors);
         }
     });
 
@@ -340,12 +288,17 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
 });
 
 /**
- * Quando o bot„o de Adicionar agrupamento È clicado
+ * Quando o bot√£o de Adicionar agrupamento √© clicado
  */
 
 $("#btnAdicionarAgrupamento").click(function () {
     $(".selectpicker").selectpicker();
     var descricao = $("#Agrupamento_Descricao").val();
+
+    if (descricao == "") {
+        PopUpDeAlerta("A descri√ß√£o est√° em branco! Verifique, por favor.");
+        return false;
+    }
 
     let agrupamento = {
         Descricao: descricao,
@@ -357,7 +310,6 @@ $("#btnAdicionarAgrupamento").click(function () {
     $("#tblAgrupamentoBody").append(`
     <tr>
         <td>${agrupamento.Descricao}</td>
-        <td><button class="btn btn-danger remover-exercicio" id="excluir">Excluir</button></td>
     </tr>`);
 
     let option = document.createElement('option');
@@ -369,7 +321,7 @@ $("#btnAdicionarAgrupamento").click(function () {
 });
 
 /**
- * Quando o bot„o de Adicionar exercÌcio È clicado
+ * Quando o bot√£o de Adicionar exerc√≠cio √© clicado
  */
 
 $("#btnAdicionarExercicio").click(function () {
@@ -386,17 +338,17 @@ $("#btnAdicionarExercicio").click(function () {
     }
 
     if (tipoExercicioId == "") {
-        PopUpDeAlerta("Nenhum tipo de exercÌcio foi selecionado!");
+        PopUpDeAlerta("Nenhum tipo de exerc√≠cio foi selecionado!");
         return false;
     }
 
     if (serie == "") {
-        PopUpDeAlerta("Nenhuma sÈrie foi definida!");
+        PopUpDeAlerta("Nenhuma s√©rie foi definida!");
         return false;
     }
 
     if (repeticao == "") {
-        PopUpDeAlerta("Nenhuma repetiÁ„o foi definida!");
+        PopUpDeAlerta("Nenhuma repeti√ß√£o foi definida!");
         return false;
     }
     let exercicio = {
@@ -413,16 +365,43 @@ $("#btnAdicionarExercicio").click(function () {
     <tr>
         <td>${agrupamentoText}</td>
         <td>${tipoExercicioText}</td>
-        <td>${exercicio.Series}</td>
-        <td>${exercicio.Repeticoes}</td>
-        <td><button class="btn btn-danger remover-exercicio" id="excluir">Excluir</button></td>
+        <td>${exercicio.Serie}</td>
+        <td>${exercicio.Repeticao}</td>
     </tr>`);
 
     limparFormExercicios();
 });
 
 /**
- * Reseta todos os campos do form de exercÌcios. 
+ * Quando se clica no bot√£o de remover na tabela de agrupamentos 
+ */
+
+$('#tblAgrupamento').on('click', '.remover', function () {
+    var indice = this.parentElement.parentElement.rowIndex - 1;
+
+    listaDeAgrupamentos.splice(indice, 1)
+
+    $(this).closest('tr').remove();
+});
+
+/**
+ * Quando se clica no bot√£o de remover na tabela de exerc√≠cios 
+ */
+
+$('#tblExercicios').on('click', '.remover', function () {
+    var indice = this.parentElement.parentElement.rowIndex - 1;
+
+    listaDeAgrupamentos.find(function (dados) {
+        return listaDeExercicios[indice]
+    });
+
+    listaDeExercicios.splice(indice, 1)
+
+    $(this).closest('tr').remove();
+});
+
+/**
+ * Reseta todos os campos do form de exerc√≠cios. 
  */
 function limparFormExercicios() {
     $('#Exercicio_Agrupamento').prop("selectedIndex", 0).change();
@@ -455,6 +434,44 @@ $("#frmCadastroTreino").on("submit", function (event) {
         Agrupamentos: listaDeAgrupamentos
     };
 
+    //Valida√ß√µes
+    if (treino.AlunoId == null) {
+        PopUpDeAlerta("Nenhum aluno foi selecionado!");
+        $("#btnEnviarRequisicao").attr("disabled", false)
+        return false;
+    }
+
+    if (treino.ProfessorId == null) {
+        PopUpDeAlerta("Nenhum professor foi selecionado!");
+        $("#btnEnviarRequisicao").attr("disabled", false)
+        return false;
+    }
+
+    if (treino.Objetivo == null) {
+        PopUpDeAlerta("Nenhum objetivo foi selecionado!");
+        $("#btnEnviarRequisicao").attr("disabled", false)
+        return false;
+    }
+
+    if (listaDeAgrupamentos.length == 0) {
+        PopUpDeAlerta("Nenhum agrupamento foi definido!");
+        $("#btnEnviarRequisicao").attr("disabled", false)
+        return false;
+    }
+
+    var existeAgrupamentosVazios = false;
+    listaDeAgrupamentos.forEach(function (value, index) {
+        if (value.Exercicios.length == 0) {
+            existeAgrupamentosVazios = true;
+        }
+    });
+
+    if (existeAgrupamentosVazios == true) {
+        PopUpDeAlerta("H√° agrupamentos sem exerc√≠cios definidos!");
+        $("#btnEnviarRequisicao").attr("disabled", false)
+        return false;
+    }
+
     $.ajax({
         type: "post",
         url: `${enderecoAPI}/treino`,
@@ -463,14 +480,10 @@ $("#frmCadastroTreino").on("submit", function (event) {
         data: JSON.stringify(treino),
         success: function (dados) {
             PopUpDeSucesso(dados.msg)
-            $('#frmCadastroTreino')[0].reset();
+            limparFormTreinos();
         },
         error: function (dados) {
-            Swal.fire(
-                `Oops! H· algo de errado`,
-                `${dados.responseJSON.msg}`,
-                'error',
-            );
+            PopUpDeErro(dados.responseJSON.errors)
         }
     });
 
@@ -478,31 +491,50 @@ $("#frmCadastroTreino").on("submit", function (event) {
 });
 
 /**
- * Retorna na tela um pop-up de alerta na tela do usu·rio.
+ * Reseta todo o formul√°rio de cadastro de treinos. 
+ */
+function limparFormTreinos() {
+    listaDeAgrupamentos = []; //Reseta a lista de agrupamentos
+    listaDeExercicios = []; //Reseta a lista de exercicios
+    limparFormAgrupamentos();
+    limparFormExercicios();
+    $('#Treino_Aluno').prop("selectedIndex", 0).change();
+    $('#Treino_Professor').prop("selectedIndex", 0).change();
+    $("#Treino_Objetivo").prop("selectedIndex", 0).change();
+    $("#Treino_DataInicio").val("");
+    $("#Treino_DataFim").val("");
+    //Limpa as duas tabelas (HTML).
+    $("#tblExerciciosBody").empty()
+    $("#tblAgrupamentoBody").empty()
+
+}
+
+/**
+ * Retorna na tela um pop-up de alerta na tela do usu√°rio.
  */
 
 function PopUpDeAlerta(mensagem) {
     Swal.fire(
-        `AtenÁ„o!`,
+        `Aten√ß√£o!`,
         `${mensagem}`,
         'warning',
     );
 }
 
 /**
- * Retorna na tela um pop-up de erro na tela do usu·rio.
+ * Retorna na tela um pop-up de erro na tela do usu√°rio.
  */
 
 function PopUpDeErro(mensagem) {
     Swal.fire(
-        `AtenÁ„o!`,
+        `Aten√ß√£o!`,
         `${mensagem}`,
-        'Erro',
+        'error',
     );
 }
 
 /**
- * Retorna na tela um pop-up de alerta na tela do usu·rio.
+ * Retorna na tela um pop-up de sucesso na tela do usu√°rio.
  */
 
 function PopUpDeSucesso(mensagem) {
@@ -510,5 +542,17 @@ function PopUpDeSucesso(mensagem) {
         `Sucesso!`,
         `${mensagem}`,
         'success',
+    );
+}
+
+/**
+ * Retorna na tela um pop-up de informa√ß√£o na tela do usu√°rio.
+ */
+
+function PopUpDeSucesso(mensagem) {
+    Swal.fire(
+        `Sucesso!`,
+        `${mensagem}`,
+        'info',
     );
 }

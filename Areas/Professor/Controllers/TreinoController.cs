@@ -22,7 +22,9 @@ namespace Academia.Areas.Professor.Controllers {
             _tipoDeExercicioRepository = tipoDeExercicioRepository;
         }
         public IActionResult Index() {
-            return View();
+
+            var treinos = _treinoRepository.Listar();
+            return View(treinos);
         }
         public IActionResult Cadastrar() {
             ViewBag.Alunos = _alunoRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));

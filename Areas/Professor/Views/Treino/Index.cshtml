@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Academia.Models.Treino>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="card-box mt-3">
+    <h4 class="header-title">Treinos</h4>
+    <p class="sub-header">
+        Treinos cadastrados no sistema.
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aluno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Professor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Objetivo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataInicio)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataFim)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Aluno.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Professor.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Objetivo)
+                    </td>
+                    <td>
+                        @item.DataInicio.ToShortDateString()
+                    </td>
+                    <td>
+                        @item.DataFim.ToShortDateString()
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", new { item.Id }, new { @class = "btn btn-warning btn-rounded" })
+                        @Html.ActionLink("Detalhar", "Detalhar", new { item.Id }, new { @class = "btn btn-info btn-rounded" })
+                        <form asp-controller="Aluno" asp-action="Excluir" method="post" style="display: inline">
+                            <input name="id" value="@item.Id" class="form-control" hidden />
+                            <input type="submit" value="Excluir" class="btn btn-danger btn-rounded" />
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

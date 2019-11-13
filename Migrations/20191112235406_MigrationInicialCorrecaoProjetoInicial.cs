@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Academia.Migrations
 {
-    public partial class MigrationInicial : Migration
+    public partial class MigrationInicialCorrecaoProjetoInicial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Endereco",
+                name: "Enderecos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -19,11 +19,12 @@ namespace Academia.Migrations
                     Numero = table.Column<string>(nullable: true),
                     Bairro = table.Column<string>(nullable: true),
                     Cidade = table.Column<string>(nullable: true),
-                    UF = table.Column<string>(nullable: true)
+                    UF = table.Column<int>(nullable: false),
+                    Complemento = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Endereco", x => x.Id);
+                    table.PrimaryKey("PK_Enderecos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,7 +34,7 @@ namespace Academia.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Nome = table.Column<string>(nullable: true),
-                    GrupoMuscular = table.Column<string>(nullable: true)
+                    GrupoMuscular = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,29 +42,30 @@ namespace Academia.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Aluno",
+                name: "Alunos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 80, nullable: false),
                     DataNascimento = table.Column<DateTime>(nullable: false),
-                    EnderecoId = table.Column<int>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true),
-                    Sexo = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
-                    Senha = table.Column<string>(nullable: true),
+                    EnderecoId = table.Column<int>(nullable: false),
+                    Telefone = table.Column<string>(nullable: false),
+                    Sexo = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Senha = table.Column<string>(maxLength: 32, nullable: false),
                     Status = table.Column<bool>(nullable: false),
                     DataCadastro = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Aluno", x => x.Id);
+                    table.PrimaryKey("PK_Alunos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Aluno_Endereco_EnderecoId",
+                        name: "FK_Alunos_Enderecos_EnderecoId",
                         column: x => x.EnderecoId,
-                        principalTable: "Endereco",
+                        principalTable: "Enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -72,26 +74,27 @@ namespace Academia.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(maxLength: 80, nullable: false),
                     DataNascimento = table.Column<DateTime>(nullable: false),
-                    EnderecoId = table.Column<int>(nullable: true),
-                    Telefone = table.Column<string>(nullable: true),
-                    Sexo = table.Column<string>(nullable: false),
-                    Email = table.Column<string>(nullable: true),
-                    Senha = table.Column<string>(nullable: true),
+                    EnderecoId = table.Column<int>(nullable: false),
+                    Telefone = table.Column<string>(nullable: false),
+                    Sexo = table.Column<int>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    Senha = table.Column<string>(maxLength: 32, nullable: false),
                     Salario = table.Column<double>(nullable: false),
-                    Admissão = table.Column<DateTime>(nullable: false),
-                    Demissão = table.Column<DateTime>(nullable: true),
-                    Turno = table.Column<string>(nullable: false)
+                    Admissao = table.Column<DateTime>(nullable: false),
+                    Demissao = table.Column<DateTime>(nullable: true),
+                    Turno = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Professores", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Professores_Endereco_EnderecoId",
+                        name: "FK_Professores_Enderecos_EnderecoId",
                         column: x => x.EnderecoId,
-                        principalTable: "Endereco",
+                        principalTable: "Enderecos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -102,7 +105,7 @@ namespace Academia.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AlunoId = table.Column<int>(nullable: true),
                     ProfessorId = table.Column<int>(nullable: true),
-                    Objetivo = table.Column<string>(nullable: true),
+                    Objetivo = table.Column<int>(nullable: false),
                     DataInicio = table.Column<DateTime>(nullable: false),
                     DataFim = table.Column<DateTime>(nullable: false)
                 },
@@ -110,9 +113,9 @@ namespace Academia.Migrations
                 {
                     table.PrimaryKey("PK_Treinos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Treinos_Aluno_AlunoId",
+                        name: "FK_Treinos_Alunos_AlunoId",
                         column: x => x.AlunoId,
-                        principalTable: "Aluno",
+                        principalTable: "Alunos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -129,7 +132,7 @@ namespace Academia.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Tipo = table.Column<string>(nullable: false),
+                    Descricao = table.Column<string>(nullable: true),
                     TreinoId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -149,7 +152,7 @@ namespace Academia.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TipoExercicioId = table.Column<int>(nullable: true),
+                    TipoExercicioId = table.Column<int>(nullable: false),
                     Serie = table.Column<int>(nullable: false),
                     Repeticao = table.Column<int>(nullable: false),
                     AgrupamentoId = table.Column<int>(nullable: true)
@@ -168,7 +171,7 @@ namespace Academia.Migrations
                         column: x => x.TipoExercicioId,
                         principalTable: "TiposExercicios",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -199,8 +202,8 @@ namespace Academia.Migrations
                 column: "TreinoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Aluno_EnderecoId",
-                table: "Aluno",
+                name: "IX_Alunos_EnderecoId",
+                table: "Alunos",
                 column: "EnderecoId");
 
             migrationBuilder.CreateIndex(
@@ -252,13 +255,13 @@ namespace Academia.Migrations
                 name: "Treinos");
 
             migrationBuilder.DropTable(
-                name: "Aluno");
+                name: "Alunos");
 
             migrationBuilder.DropTable(
                 name: "Professores");
 
             migrationBuilder.DropTable(
-                name: "Endereco");
+                name: "Enderecos");
         }
     }
 }

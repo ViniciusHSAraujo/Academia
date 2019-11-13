@@ -14,4 +14,30 @@
     <PackageReference Include="X.PagedList" Version="7.9.0" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Compile Update="Libraries\Lang\MensagensErro.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MensagensErro.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Libraries\Lang\MensagensSucesso.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>MensagensSucesso.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <EmbeddedResource Update="Libraries\Lang\MensagensErro.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MensagensErro.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Libraries\Lang\MensagensSucesso.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MensagensSucesso.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

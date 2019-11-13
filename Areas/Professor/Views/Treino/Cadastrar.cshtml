@@ -20,7 +20,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label asp-for="Treino.Professor" class="control-label"></label>
-                        <select asp-for="Treino.Professor" asp-items="ViewBag.Professores" class="form-control selectpicker"  data-live-search="true">
+                        <select asp-for="Treino.Professor" asp-items="ViewBag.Professores" class="form-control selectpicker" data-live-search="true">
                             <option value="" disabled selected>Selecione o professor</option>
                         </select>
                         <span asp-validation-for="Treino.Professor" class="text-danger"></span>
@@ -70,11 +70,13 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <td>Descrição</td>
-                                    <td>Excluir</td>
+                                    @*//TODO - Exclusão
+                                        <td>Excluir</td>
+                                        <td><button class="btn btn-danger remover" id="excluir">Excluir</button></td>
+                                    *@
                                 </tr>
                             </thead>
                             <tbody id="tblAgrupamentoBody">
-                                
                             </tbody>
                         </table>
                     </div>
@@ -122,7 +124,10 @@
                                     <td>Tipo de Exercicio</td>
                                     <td>Séries</td>
                                     <td>Repetições</td>
-                                    <td>Excluir</td>
+                                    @*//TODO - Exclusão
+                                        <td>Excluir</td>
+                                        <td><button class="btn btn-danger remover" id="excluir">Excluir</button></td>
+                                    *@
                                 </tr>
                             </thead>
                             <tbody id="tblExerciciosBody">

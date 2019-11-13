@@ -37,7 +37,7 @@ namespace Academia.Repositories {
         }
 
         public List<Professor> Listar() {
-            return _dbContext.Professores.AsNoTracking().ToList();
+            return _dbContext.Professores.ToList();
         }
 
         public IPagedList<Professor> Listar(int? pagina) {

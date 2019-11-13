@@ -20,6 +20,7 @@ namespace Academia.Controllers {
         [HttpPost]
         public IActionResult Post([FromBody]Treino treino) {
             if (ModelState.IsValid) {
+
                 _treinoRepository.Cadastrar(treino);
                 return Ok(new { msg = $"O treino do aluno foi cadastrado com sucesso!" });
             } else {
