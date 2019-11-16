@@ -25,6 +25,7 @@ namespace Academia.Areas.Aluno.Controllers {
             return View();
         }
 
+        [HttpPost]
         public IActionResult Ficha(int id) {
             var treino = _treinoRepository.Buscar(id);
             var ultimoExercicio = _historicoExercicioRepository.BuscarUltimo(id);

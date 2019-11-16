@@ -28,7 +28,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
-                    <table class="table mt-4 table-centered">
+                    <table class="table mt-4 table-centered" id="tblFichaExercicios">
                         <thead>
                             <tr>
                                 <th>Exercicio</th>
@@ -39,13 +39,13 @@
                         </thead>
                         <tbody>
                             @foreach (var exercicio in @Model.Agrupamentos[AgrupamentoDeHojeIndex].Exercicios) {
-                                <tr>
-                                    <td hidden>@exercicio.Id</td>
+                                <tr class="exercicio">
+                                    <td id="Exercicio_Id" hidden>@exercicio.Id</td>
                                     <td>@exercicio.TipoExercicio.Nome</td>
                                     <td>@exercicio.Serie</td>
                                     <td>@exercicio.Repeticao</td>
                                     <td class="d-print-none">
-                                        <input class="form-control" />
+                                        <input name="Exercicio_Quantidade" id="Exercicio_Quantidade" class="form-control" />
                                         <span class="text-danger"></span>
                                     </td>
                                 </tr>
@@ -76,8 +76,9 @@
 
         <div class="mt-4 mb-1">
             <div class="text-right d-print-none">
+                <a asp-action="Index" class="btn btn-light waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i>Voltar</a>
                 <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i>Imprimir</a>
-                <a href="#" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-check mr-1"></i>Marcar como concluído</a>
+                <button type="button" id="btnEnviarRequisicao" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-check mr-1"></i>Marcar como concluído</button>
             </div>
         </div>
     </div>

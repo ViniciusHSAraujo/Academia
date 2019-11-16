@@ -509,6 +509,43 @@ function limparFormTreinos() {
 
 }
 
+/*
+ * Cadastrar Histórico de Exercícios
+ */
+
+$("#btnEnviarRequisicao").on("click", function (event) {
+    event.preventDefault();
+    $("#btnEnviarRequisicao").attr("disabled", true)
+
+    let historicosDosExercicios = [];
+
+    $('#tblFichaExercicios > tbody  > tr').each(function () {
+
+        let exercicio = {
+            ExercicioId : $(this).find("#Exercicio_Id").text(),
+            Quantidade : $(this).find('#Exercicio_Quantidade').val()
+        }
+        historicosDosExercicios.push(exercicio);
+    });
+
+    $.ajax({
+        type: "post",
+        url: `${enderecoAPI}/HistoricoExercicio`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(historicosDosExercicios),
+        success: function (dados) {
+            PopUpDeSucesso(dados.msg);
+        },
+        error: function (dados) {
+            PopUpDeErro(dados.responseJSON.errors);
+        }
+    });
+
+    $("#btnEnviarRequisicao").attr("disabled", false)
+});
+
+
 /**
  * Retorna na tela um pop-up de alerta na tela do usuário.
  */
@@ -549,7 +586,7 @@ function PopUpDeSucesso(mensagem) {
  * Retorna na tela um pop-up de informação na tela do usuário.
  */
 
-function PopUpDeSucesso(mensagem) {
+function PopUpDeInformacao(mensagem) {
     Swal.fire(
         `Sucesso!`,
         `${mensagem}`,

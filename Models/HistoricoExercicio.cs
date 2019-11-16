@@ -10,6 +10,7 @@ namespace Academia.Models {
 
         [Display(Name = "Exercício")]
         public Exercicio Exercicio { get; set; }
+        public int ExercicioId { get; set; }
 
         [Display(Name = "Data")]
         public DateTime Data { get; set; }
@@ -17,7 +18,5 @@ namespace Academia.Models {
         [Display(Name = "Quantidade")]
         public int Quantidade { get; set; }
 
-        [Display(Name = "Unidade")]
-        public string Unidade { get; set; }
     }
 }

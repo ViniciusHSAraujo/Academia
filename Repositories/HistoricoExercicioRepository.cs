@@ -22,11 +22,16 @@ namespace Academia.Repositories {
 
 
         public HistoricoExercicio BuscarUltimo(int id) {
-            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).ThenInclude(h => h.Agrupamento).ThenInclude(a => a.Treino).ThenInclude(t => t.Aluno).LastOrDefault(e => e.Exercicio.Agrupamento.Treino.Aluno.Id == id); ;
+            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).ThenInclude(h => h.Agrupamento).ThenInclude(a => a.Treino).ThenInclude(t => t.Aluno).Where(h => h.Exercicio.Agrupamento.Treino.Aluno.Id == id).OrderBy(h => h.Id).LastOrDefault();
         }
 
         public void Cadastrar(HistoricoExercicio obj) {
             _dbContext.Add(obj);
+            _dbContext.SaveChanges();
+        }
+
+        public void Cadastrar(IEnumerable<HistoricoExercicio> obj) {
+            _dbContext.AddRange(obj);
             _dbContext.SaveChanges();
         }
 

@@ -22,11 +22,11 @@
 
             <h5 class="auth-title">Impressão de fichas</h5>
 
-            <form action="#">
+            <form asp-controller="Home" asp-action="Ficha" asp-area="Aluno" method="post">
 
                 <div class="form-group col-md-12">
                     <label class="control-label">Encontre seu nome na lista abaixo:</label>
-                    <select id="alunos" name="alunos" asp-items="ViewBag.Alunos" class="form-control selectpicker" data-live-search="true">
+                    <select id="id" name="id" asp-items="ViewBag.Alunos" class="form-control selectpicker" data-live-search="true">
                         <option value="" disabled selected>Selecione seu nome</option>
                     </select>
                 </div>
