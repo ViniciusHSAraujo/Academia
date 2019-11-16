@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Academia.Repositories.Interfaces {
     public interface IHistoricoExercicioRepository : IRepository<HistoricoExercicio> {
+        HistoricoExercicio BuscarUltimo(int id);
 
     }
 }

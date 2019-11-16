@@ -27,11 +27,11 @@ namespace Academia.Areas.Aluno.Controllers {
 
         public IActionResult Ficha(int id) {
             var treino = _treinoRepository.Buscar(id);
-            var ultimoExercicio = _historicoExercicioRepository.Buscar(id);
+            var ultimoExercicio = _historicoExercicioRepository.BuscarUltimo(id);
             if (ultimoExercicio == null) {
                 ViewBag.AgrupamentoDeHojeIndex = 0;
             } else {
-                var proximoIndice = treino.Agrupamentos.IndexOf(ultimoExercicio.Agrupamento) + 1;
+                var proximoIndice = treino.Agrupamentos.IndexOf(ultimoExercicio.Exercicio.Agrupamento) + 1;
                 //Se o próximo índice for igual à quantidade de agrupamentos, ele estará em um índice maior do que o array, portanto, volta pro zero.
                 ViewBag.AgrupamentoDeHojeIndex = proximoIndice == treino.Agrupamentos.Count() ? 0 : proximoIndice;
             }

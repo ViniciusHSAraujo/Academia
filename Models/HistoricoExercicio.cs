@@ -8,9 +8,6 @@ namespace Academia.Models {
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        [Display(Name = "Agrupamento")]
-        public Agrupamento Agrupamento { get; set; }
-
         [Display(Name = "Exercício")]
         public Exercicio Exercicio { get; set; }
 

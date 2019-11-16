@@ -17,7 +17,12 @@ namespace Academia.Repositories {
         }
 
         public HistoricoExercicio Buscar(int id) {
-            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).Include(h => h.Agrupamento).ThenInclude(a => a.Treino).ThenInclude(t => t.Aluno).LastOrDefault(e => e.Agrupamento.Treino.Aluno.Id == id); ;
+            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).FirstOrDefault(h => h.Id == id);
+        }
+
+
+        public HistoricoExercicio BuscarUltimo(int id) {
+            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).ThenInclude(h => h.Agrupamento).ThenInclude(a => a.Treino).ThenInclude(t => t.Aluno).LastOrDefault(e => e.Exercicio.Agrupamento.Treino.Aluno.Id == id); ;
         }
 
         public void Cadastrar(HistoricoExercicio obj) {
@@ -37,7 +42,7 @@ namespace Academia.Repositories {
         }
 
         public List<HistoricoExercicio> Listar() {
-            return _dbContext.HistoricosExercicios.AsNoTracking().Include(h => h.Agrupamento).ToList();
+            return _dbContext.HistoricosExercicios.AsNoTracking().Include(h => h.Exercicio).ToList();
         }
 
         public IPagedList<HistoricoExercicio> Listar(int? pagina) {
