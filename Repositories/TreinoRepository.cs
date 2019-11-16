@@ -17,7 +17,7 @@ namespace Academia.Repositories {
         }
 
         public Treino Buscar(int id) {
-            return _dbContext.Treinos.AsNoTracking().Include(t => t.Aluno).Include(t => t.Professor).SingleOrDefault(t => t.Id == id);
+            return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).Include(t => t.Agrupamentos).ThenInclude(a => a.Exercicios).ThenInclude(e => e.TipoExercicio).Where(t => t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now && t.Situacao == true && t.Aluno.Id == id).LastOrDefault();
         }
 
         public void Cadastrar(Treino obj) {

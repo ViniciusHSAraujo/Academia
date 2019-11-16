@@ -8,8 +8,11 @@ namespace Academia.Models {
         [Display(Name = "Id")]
         public int Id { get; set; }
 
+        [Display(Name = "Agrupamento")]
+        public Agrupamento Agrupamento { get; set; }
+
         [Display(Name = "Exercício")]
-        public virtual Exercicio Exercicio { get; set; }
+        public Exercicio Exercicio { get; set; }
 
         [Display(Name = "Data")]
         public DateTime Data { get; set; }

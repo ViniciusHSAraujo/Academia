@@ -1,0 +1,41 @@
+﻿@model Aluno
+@{
+    ViewData["Title"] = "Busca de Fichas de Alunos";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+    <div class="card">
+
+        <div class="card-body p-4">
+
+            <div class="text-center mb-4">
+                <a href="index.html">
+                    <span><img src="~/assets/images/logo-dark.png" alt="" height="26"></span>
+                </a>
+            </div>
+
+            <div class="text-center w-75 m-auto">
+                <img src="~/assets/images/users/user-1.jpg" width="88" alt="user-image" class="rounded-circle img-thumbnail">
+                <h4 class="text-dark-50 text-center mt-3">Olá, aluno!</h4>
+                <p class="text-muted mb-4">Utilize o formulário abaixo para encontrar seu nome e clique no botão para visualizar ou imprimir sua ficha.</p>
+            </div>
+
+            <h5 class="auth-title">Impressão de fichas</h5>
+
+            <form action="#">
+
+                <div class="form-group col-md-12">
+                    <label class="control-label">Encontre seu nome na lista abaixo:</label>
+                    <select id="alunos" name="alunos" asp-items="ViewBag.Alunos" class="form-control selectpicker" data-live-search="true">
+                        <option value="" disabled selected>Selecione seu nome</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-0 text-center">
+                    <button class="btn btn-danger btn-block" type="submit"> Buscar ficha </button>
+                </div>
+
+            </form>
+
+        </div> <!-- end card-body -->
+    </div>

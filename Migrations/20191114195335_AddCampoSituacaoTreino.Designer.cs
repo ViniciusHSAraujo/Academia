@@ -4,14 +4,16 @@ using Academia.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Academia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20191114195335_AddCampoSituacaoTreino")]
+    partial class AddCampoSituacaoTreino
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -127,8 +129,6 @@ namespace Academia.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AgrupamentoId");
-
                     b.Property<DateTime>("Data");
 
                     b.Property<int?>("ExercicioId");
@@ -139,11 +139,9 @@ namespace Academia.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgrupamentoId");
-
                     b.HasIndex("ExercicioId");
 
-                    b.ToTable("HistoricosExercicios");
+                    b.ToTable("HistoricoExercicio");
                 });
 
             modelBuilder.Entity("Academia.Models.Professor", b =>
@@ -258,10 +256,6 @@ namespace Academia.Migrations
 
             modelBuilder.Entity("Academia.Models.HistoricoExercicio", b =>
                 {
-                    b.HasOne("Academia.Models.Agrupamento", "Agrupamento")
-                        .WithMany()
-                        .HasForeignKey("AgrupamentoId");
-
                     b.HasOne("Academia.Models.Exercicio", "Exercicio")
                         .WithMany("Historicos")
                         .HasForeignKey("ExercicioId");

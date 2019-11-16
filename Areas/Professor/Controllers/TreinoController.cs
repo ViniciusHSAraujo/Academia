@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Academia.Models.ViewModel;
 using Academia.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -26,6 +27,7 @@ namespace Academia.Areas.Professor.Controllers {
             var treinos = _treinoRepository.Listar();
             return View(treinos);
         }
+
         public IActionResult Cadastrar() {
             ViewBag.Alunos = _alunoRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
             ViewBag.Professores = _professorRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
@@ -34,8 +36,7 @@ namespace Academia.Areas.Professor.Controllers {
         }
 
         public IActionResult Editar(int id) {
-            var treino = _treinoRepository.Buscar(id);
-            return View(treino);
+            return View();
         }
 
         public IActionResult Detalhar(int id) {

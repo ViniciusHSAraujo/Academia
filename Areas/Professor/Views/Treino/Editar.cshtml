@@ -1,0 +1,146 @@
+﻿@model Academia.Models.ViewModel.CadastroTreinoViewModel
+
+@{
+    ViewData["Title"] = "Cadastro de Treinos";
+}
+
+<div class="col-md-12 mt-3">
+    <form id="frmCadastroTreino" autocomplete="off">
+        <div class="card">
+            <div class="card-body">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <h4 class="header-title">Dados iniciais</h4>
+                <div class="form-row ">
+                    <div class="form-group col-md-3">
+                        <label asp-for="Treino.Aluno" class="control-label"></label>
+                        <select asp-for="Treino.Aluno" asp-items="ViewBag.Alunos" class="form-control selectpicker" data-live-search="true">
+                            <option value="" disabled selected>Selecione o aluno</option>
+                        </select>
+                        <span asp-validation-for="Treino.Aluno" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label asp-for="Treino.Professor" class="control-label"></label>
+                        <select asp-for="Treino.Professor" asp-items="ViewBag.Professores" class="form-control selectpicker" data-live-search="true">
+                            <option value="" disabled selected>Selecione o professor</option>
+                        </select>
+                        <span asp-validation-for="Treino.Professor" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label asp-for="Treino.Objetivo" class="control-label"></label>
+                        <select asp-for="Treino.Objetivo" asp-items="Html.GetEnumSelectList<Objetivo>()" class="form-control selectpicker">
+                            <option value="" disabled selected>Selecione o objetivo</option>
+                        </select>
+                        <span asp-validation-for="Treino.Objetivo" class="text-danger"></span>
+                    </div>
+                    <div class="form form-group col-md-2">
+                        <div class="form-group">
+                            <label asp-for="Treino.DataInicio" class="control-label"></label>
+                            <input asp-for="Treino.DataInicio" type="text" class="form-control" data-date-format="dd/mm/yyyy" language="pt-BR" data-provide="datepicker">
+                            <span asp-validation-for="Treino.DataInicio" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <div class="form-group">
+                            <label asp-for="Treino.DataFim" class="control-label"></label>
+                            <input asp-for="Treino.DataFim" type="text" class="form-control" data-date-format="dd/mm/yyyy" language="pt-BR" data-provide="datepicker">
+                            <span asp-validation-for="Treino.DataFim" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Agrupamentos</h4>
+                        <div class="form-row">
+                            <div class="form-group col-md-9">
+                                <label asp-for="Agrupamento.Descricao" class="control-label"></label>
+                                <input asp-for="Agrupamento.Descricao" class="form-control" />
+                                <span asp-validation-for="Agrupamento.Descricao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Ações</label>
+                                <input type="button" id="btnAdicionarAgrupamento" value="Adicionar" class="btn btn-success" />
+                            </div>
+                        </div>
+                        <table class="table mb-0" id="tblAgrupamento">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td>Descrição</td>
+                                    @*//TODO - Exclusão
+                                        <td>Excluir</td>
+                                        <td><button class="btn btn-danger remover" id="excluir">Excluir</button></td>
+                                    *@
+                                </tr>
+                            </thead>
+                            <tbody id="tblAgrupamentoBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title">Exercícios</h4>
+                        <div class="form-row ">
+                            <div class="form-group col-md-2">
+                                <label asp-for="Exercicio.Agrupamento" class="control-label"></label>
+                                <select asp-for="Exercicio.Agrupamento" class="form-control selectpicker" data-live-search="true">
+                                    <option value="" disabled selected>Selecione o agrupamento</option>
+                                </select>
+                                <span asp-validation-for="Exercicio.Agrupamento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label asp-for="Exercicio.TipoExercicio" class="control-label"></label>
+                                <select asp-for="Exercicio.TipoExercicio" asp-items="ViewBag.TiposDeExercicios" class="form-control selectpicker" data-live-search="true">
+                                    <option value="" disabled selected>Selecione o tipo de exercicio</option>
+                                </select>
+                                <span asp-validation-for="Exercicio.TipoExercicio" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group col-md-2">
+                                <label asp-for="Exercicio.Serie" class="control-label"></label>
+                                <input asp-for="Exercicio.Serie" class="form-control" />
+                                <span asp-validation-for="Exercicio.Serie" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label asp-for="Exercicio.Repeticao" class="control-label"></label>
+                                <input asp-for="Exercicio.Repeticao" class="form-control" />
+                                <span asp-validation-for="Exercicio.Repeticao" class="text-danger"></span>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label class="control-label">Ações</label>
+                                <input type="button" id="btnAdicionarExercicio" value="Adicionar" class="btn btn-success" />
+                            </div>
+                        </div>
+                        <table class="table mb-0" id="tblExercicios">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td>Agrupamento</td>
+                                    <td>Tipo de Exercicio</td>
+                                    <td>Séries</td>
+                                    <td>Repetições</td>
+                                    @*//TODO - Exclusão
+                                        <td>Excluir</td>
+                                        <td><button class="btn btn-danger remover" id="excluir">Excluir</button></td>
+                                    *@
+                                </tr>
+                            </thead>
+                            <tbody id="tblExerciciosBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" id="btnEnviarRequisicao" value="Cadastrar" class="btn btn-primary" />
+            <a asp-action="Index" class="btn btn-info">Voltar</a>
+        </div>
+    </form>
+</div>

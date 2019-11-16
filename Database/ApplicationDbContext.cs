@@ -14,6 +14,7 @@ namespace Academia.Database {
         public DbSet<Professor> Professores { get; set; }
         public DbSet<TipoExercicio> TiposExercicios { get; set; }
         public DbSet<Treino> Treinos { get; set; }
+        public DbSet<HistoricoExercicio> HistoricosExercicios { get; set; }
 
     }
 }

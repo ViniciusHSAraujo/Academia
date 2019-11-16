@@ -24,5 +24,6 @@ namespace Academia.Models {
         public DateTime DataFim { get; set; }
 
         public virtual List<Agrupamento> Agrupamentos { get; set; }
+        public bool Situacao { get; internal set; }
     }
 }

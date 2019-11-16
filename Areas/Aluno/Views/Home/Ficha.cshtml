@@ -1,0 +1,84 @@
+﻿@model Treino
+@{
+    ViewData["Title"] = "Ficha";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    var AgrupamentoDeHojeIndex = ViewBag.AgrupamentoDeHojeIndex;
+}
+<div class="col-12">
+    <div class="card-box">
+        <div class="clearfix">
+            <div class="float-left">
+                <img src="assets/images/logo-dark.png" alt="Logo da Academia" height="24">
+            </div>
+            <div class="float-right">
+                <h4 class="m-0">Ficha de Exercícios</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mt-3 float-md-left">
+                    <p><strong>Nome:</strong> <span>@Model.Aluno.Nome</span></p>
+                    <p><strong>Professor: </strong> <span>@Model.Professor.Nome </span></p>
+                    <p><strong>Objetivo: </strong> <span>@Model.Objetivo</span> - <strong>Agrupamento: </strong> <span>@Model.Agrupamentos[AgrupamentoDeHojeIndex].Descricao</span></p>
+                    <p><strong>Data de Início: </strong> <span>@Model.DataInicio.ToShortDateString()</span> - <strong>Data Final: </strong> <span>@Model.DataFim.ToShortDateString()</span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <table class="table mt-4 table-centered">
+                        <thead>
+                            <tr>
+                                <th>Exercicio</th>
+                                <th style="width: 10%">Séries</th>
+                                <th style="width: 10%">Repetições</th>
+                                <th style="width: 10%" class="d-print-none">Carga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var exercicio in @Model.Agrupamentos[AgrupamentoDeHojeIndex].Exercicios) {
+                                <tr>
+                                    <td hidden>@exercicio.Id</td>
+                                    <td>@exercicio.TipoExercicio.Nome</td>
+                                    <td>@exercicio.Serie</td>
+                                    <td>@exercicio.Repeticao</td>
+                                    <td class="d-print-none">
+                                        <input class="form-control" />
+                                        <span class="text-danger"></span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="clearfix p-1">
+                    <h6 class="text-muted">Atenção:</h6>
+
+                    <small class="text-muted">
+                        Após a utilização de barras, anilhas e halteres, favor recolocá-los em seus
+                        devidos lugares.
+                    </small><br>
+
+                    <small class="text-muted">
+                        Utilize de forma adequada os equipamentos, seguindo as orientações do
+                        professor da academia, sob pena de responder por quaisquer danos que venha ocasionar por má utilização.
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-4 mb-1">
+            <div class="text-right d-print-none">
+                <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i>Imprimir</a>
+                <a href="#" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-check mr-1"></i>Marcar como concluído</a>
+            </div>
+        </div>
+    </div>
+</div>
