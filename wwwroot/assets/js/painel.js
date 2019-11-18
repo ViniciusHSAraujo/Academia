@@ -1,8 +1,8 @@
-﻿var enderecoSite = "https://localhost:44354";
-var enderecoAPI = "https://localhost:44354/api/v1";
+﻿//var enderecoSite = "https://localhost:44354";
+//var enderecoAPI = "https://localhost:44354/api/v1";
 
-//var enderecoSite = "https://localhost:5001";
-//var enderecoAPI = "https://localhost:5001/api/v1";
+var enderecoSite = "https://localhost:5001";
+var enderecoAPI = "https://localhost:5001/api/v1";
 
 var listaDeExercicios = [];
 var listaDeAgrupamentos = [];
