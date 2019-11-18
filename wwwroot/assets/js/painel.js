@@ -1,8 +1,8 @@
-﻿//var enderecoSite = "https://localhost:44354";
-//var enderecoAPI = "https://localhost:44354/api/v1";
+﻿var enderecoSite = "https://localhost:44354";
+var enderecoAPI = "https://localhost:44354/api/v1";
 
-var enderecoSite = "https://localhost:5001";
-var enderecoAPI = "https://localhost:5001/api/v1";
+//var enderecoSite = "https://localhost:5001";
+//var enderecoAPI = "https://localhost:5001/api/v1";
 
 var listaDeExercicios = [];
 var listaDeAgrupamentos = [];
@@ -142,8 +142,8 @@ $("#frmCadastroAluno").on("submit", function (event) {
     var aluno = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        DataCadastro: new Date().toLocaleString(),
-        DataNascimento: $("#DataNascimento").val(),
+        DataCadastro: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+        DataNascimento: moment($("#Treino_DataInicio")).format("YYYY-MM-DD HH:mm:ss"),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
