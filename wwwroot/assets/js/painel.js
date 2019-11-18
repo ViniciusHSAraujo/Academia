@@ -1,8 +1,8 @@
-﻿var enderecoSite = "https://localhost:44354";
-var enderecoAPI = "https://localhost:44354/api/v1";
+﻿//var enderecoSite = "https://localhost:44354";
+//var enderecoAPI = "https://localhost:44354/api/v1";
 
-//var enderecoSite = "https://localhost:5001";
-//var enderecoAPI = "https://localhost:5001/api/v1";
+var enderecoSite = "https://localhost:5001";
+var enderecoAPI = "https://localhost:5001/api/v1";
 
 var listaDeExercicios = [];
 var listaDeAgrupamentos = [];
@@ -513,17 +513,17 @@ function limparFormTreinos() {
  * Cadastrar Histórico de Exercícios
  */
 
-$("#btnEnviarRequisicao").on("click", function (event) {
+$("#btnSalvarHistorico").on("click", function (event) {
     event.preventDefault();
-    $("#btnEnviarRequisicao").attr("disabled", true)
+    $("#btnSalvarHistorico").attr("disabled", true)
 
     let historicosDosExercicios = [];
 
     $('#tblFichaExercicios > tbody  > tr').each(function () {
 
         let exercicio = {
-            ExercicioId : $(this).find("#Exercicio_Id").text(),
-            Quantidade : $(this).find('#Exercicio_Quantidade').val()
+            ExercicioId: $(this).find("#Exercicio_Id").text(),
+            Quantidade: $(this).find('#Exercicio_Quantidade').val()
         }
         historicosDosExercicios.push(exercicio);
     });
@@ -535,14 +535,13 @@ $("#btnEnviarRequisicao").on("click", function (event) {
         contentType: "application/json",
         data: JSON.stringify(historicosDosExercicios),
         success: function (dados) {
-            PopUpDeSucesso(dados.msg);
+            PopUpDeSucesso(`${dados.msg} A página será recarregada em instantes.`);
+            setTimeout(`location.href = '${enderecoSite}/aluno/';`, 3500);
         },
         error: function (dados) {
             PopUpDeErro(dados.responseJSON.errors);
         }
     });
-
-    $("#btnEnviarRequisicao").attr("disabled", false)
 });
 
 

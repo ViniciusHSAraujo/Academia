@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace Academia.Repositories.Interfaces {
     public interface IHistoricoExercicioRepository : IRepository<HistoricoExercicio> {
         void Cadastrar(IEnumerable<HistoricoExercicio> obj);
-        HistoricoExercicio BuscarUltimo(int id);
+        HistoricoExercicio BuscarUltimoExercicioDoAluno(int id);
+
+        int ContarTreinosExecutados();
 
     }
 }

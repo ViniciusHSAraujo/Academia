@@ -47,6 +47,11 @@ namespace Academia.Repositories {
         public Professor Login(string email, string senha) {
             return _dbContext.Professores.Where(p => p.Email.Equals(email) && p.Senha.Equals(senha)).FirstOrDefault();
         }
-
+        /**
+         * Conta a quantidade de professores que estão ativos (já foram admitidos e não foram demitidos ainda).
+         */
+        public int ContarProfessoresAtivos() {
+            return _dbContext.Professores.Where(p => p.Admissao < DateTime.Now && ((p.Demissao.HasValue && p.Demissao.Value > DateTime.Now) || !p.Demissao.HasValue)).Count();
+        }
     }
 }

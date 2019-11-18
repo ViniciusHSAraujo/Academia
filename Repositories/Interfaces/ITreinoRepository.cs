@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Academia.Repositories.Interfaces {
     public interface ITreinoRepository : IRepository<Treino> {
-
+        int ContarTreinosAtivos();
     }
 }

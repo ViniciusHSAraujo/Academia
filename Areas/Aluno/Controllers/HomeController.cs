@@ -28,7 +28,7 @@ namespace Academia.Areas.Aluno.Controllers {
         [HttpPost]
         public IActionResult Ficha(int id) {
             var treino = _treinoRepository.Buscar(id);
-            var ultimoExercicio = _historicoExercicioRepository.BuscarUltimo(id);
+            var ultimoExercicio = _historicoExercicioRepository.BuscarUltimoExercicioDoAluno(id);
             if (ultimoExercicio == null) {
                 ViewBag.AgrupamentoDeHojeIndex = 0;
             } else {

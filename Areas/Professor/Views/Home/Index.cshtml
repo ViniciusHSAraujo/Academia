@@ -1,7 +1,58 @@
-﻿
+﻿@model DashboardProfessorViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
+    <div class="row mt-3">
 
+        <div class="col-xl-3 col-md-6">
+            <div class="card-box">
+                <h3 class="header-title mt-0 mb-3">Alunos</h3>
+                <div class="mt-1">
+                    <div class="text-left">
+                        <h2 class="mt-2 pt-0 mb-1"> @Model.QuantidadeAlunosAtivos </h2>
+                        <p class="text-muted mb-0">Somente alunos que estão com seu cadastro ativo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card-box">
+                <h3 class="header-title mt-0 mb-3">Professores</h3>
+                <div class="mt-1">
+                    <div class="text-left">
+                        <h2 class="mt-2 pt-0 mb-1"> @Model.QuantidadeProfessoresAtivos </h2>
+                        <p class="text-muted mb-0">Somente professores que estão trabalhando atualmente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card-box">
+                <h3 class="header-title mt-0 mb-3">Fichas de Exercícios</h3>
+                <div class="mt-1">
+                    <div class="text-left">
+                        <h2 class="mt-2 pt-0 mb-1"> @Model.QuantidadeFichasAtivas </h2>
+                        <p class="text-muted mb-0">Quantidade de fichas ativas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card-box">
+                <h3 class="header-title mt-0 mb-3">Treinos Concluídos</h3>
+                <div class="mt-1">
+                    <div class="text-left">
+                        <h2 class="mt-2 pt-0 mb-1"> @Model.QuantidadeTreinosConcluidos </h2>
+                        <p class="text-muted mb-0">Quantidade de treinos concluídos durante o mês atual.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

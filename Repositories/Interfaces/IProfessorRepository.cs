@@ -8,6 +8,6 @@ namespace Academia.Repositories.Interfaces {
     public interface IProfessorRepository : IRepository<Professor> {
 
         Professor Login(string email, string senha);
-
+        int ContarProfessoresAtivos();
     }
 }

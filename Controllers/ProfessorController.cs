@@ -48,9 +48,11 @@ namespace Academia.Controllers {
 
         [HttpPut]
         public IActionResult Put([FromBody]Professor professor) {
+            ModelState.Remove("Senha");
+            ModelState.Remove("ConfirmacaoSenha");
             if (ModelState.IsValid) {
                 _professorRepository.Editar(professor);
-                return Ok(new { msg = $"O cadastro do professor {professor.Nome} foi editado         com sucesso!" });
+                return Ok(new { msg = $"O cadastro do professor {professor.Nome} foi editado com sucesso!" });
             } else {
                 return BadRequest(new { msg = $"Há algo de errado na requisição, verifique e tente novamente." });
             }

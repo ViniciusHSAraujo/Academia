@@ -21,7 +21,7 @@ namespace Academia.Repositories {
         }
 
 
-        public HistoricoExercicio BuscarUltimo(int id) {
+        public HistoricoExercicio BuscarUltimoExercicioDoAluno(int id) {
             return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).ThenInclude(h => h.Agrupamento).ThenInclude(a => a.Treino).ThenInclude(t => t.Aluno).Where(h => h.Exercicio.Agrupamento.Treino.Aluno.Id == id).OrderBy(h => h.Id).LastOrDefault();
         }
 
@@ -52,6 +52,12 @@ namespace Academia.Repositories {
 
         public IPagedList<HistoricoExercicio> Listar(int? pagina) {
             return _dbContext.HistoricosExercicios.ToPagedList();
+        }
+        /**
+         * Conta a quantidade de treinos que foram executados no mês atual.
+         */
+        public int ContarTreinosExecutados() {
+            return _dbContext.HistoricosExercicios.Where(h => h.Data.Month == DateTime.Now.Month && h.Data.Year == DateTime.Now.Year).GroupBy(h => h.Exercicio).Count();
         }
     }
 }
