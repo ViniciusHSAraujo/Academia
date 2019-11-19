@@ -46,10 +46,10 @@ $("#frmCadastroProfessor").on("submit", function (event) {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
         Salario: $("#Salario").val(),
-        Admissao: $("#Admissao").val(),
-        Demissao: $("#Demissao").val(),
+        Admissao: moment($("#Admissao")).format("YYYY-MM-DD HH:mm:ss"),
+        Demissao: moment($("#Demissao")).format("YYYY-MM-DD HH:mm:ss"),
         Turno: $("#Turno").val(),
-        DataNascimento: $("#DataNascimento").val(),
+        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -98,7 +98,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
         Admissao: $("#Admissao").val(),
         Demissao: $("#Demissao").val(),
         Turno: $("#Turno").val(),
-        DataNascimento: $("#DataNascimento").val(),
+        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -143,7 +143,7 @@ $("#frmCadastroAluno").on("submit", function (event) {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
         DataCadastro: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-        DataNascimento: moment($("#Treino_DataInicio")).format("YYYY-MM-DD HH:mm:ss"),
+        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -189,8 +189,8 @@ $("#frmEdicaoAluno").on("submit", function (event) {
     var aluno = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        DataCadastro: $("#DataCadastro").val(),
-        DataNascimento: $("#DataNascimento").val(),
+        DataCadastro: moment($("#DataCadastro")).format("YYYY-MM-DD HH:mm:ss"),
+        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -592,3 +592,64 @@ function PopUpDeInformacao(mensagem) {
         'info',
     );
 }
+
+function limparEndereco() {
+    // Limpa valores dos campos de endereço dos formulários.
+
+    $("#Endereco_Rua").val("");
+    $("#Endereco_Bairro").val("");
+    $("#Endereco_Cidade").val("");
+    $("#Endereco_UF").val("");
+}
+
+/**
+ * Validação de CEP e busca no webservice da PostMon. 
+ */
+$(document).ready(function () {
+
+    //Quando o campo cep perde o foco.
+    $("#Endereco_Cep").blur(function () {
+
+        //Nova variável "cep" somente com dígitos.
+        var cep = $(this).val().replace(/\D/g, '');
+
+        //Verifica se campo cep possui valor informado.
+        if (cep != "") {
+
+            //Expressão regular para validar o CEP.
+            var validacep = /^[0-9]{8}$/;
+
+            //Valida o formato do CEP.
+            if (validacep.test(cep)) {
+
+                //Preenche os campos enquanto consulta o webservice.
+                $("#Endereco_Rua").val("Buscando dados, aguarde...");
+                $("#Endereco_Bairro").val("Buscando dados, aguarde...");
+                $("#Endereco_Cidade").val("Buscando dados, aguarde...");
+
+                //Consulta o webservice viacep.com.br/
+                $.getJSON(`https://api.postmon.com.br/v1/cep/${cep}?format=json`, function (dados) {
+
+                    //Atualiza os campos com os valores da consulta.
+                    $("#Endereco_Rua").val(dados.logradouro);
+                    $("#Endereco_Bairro").val(dados.bairro);
+                    $("#Endereco_Cidade").val(dados.cidade);
+                    $("#Endereco_UF option").filter(function () {
+                        return this.text == dados.estado_info.nome;
+                    }).attr('selected', true);
+                }).fail(function () {
+                    limparEndereco();
+                    alert("CEP não encontrado.");
+                })
+            } else {
+                //cep é inválido.
+                limparEndereco();
+                alert("Formato de CEP inválido.");
+            }
+        } else {
+            //cep sem valor, limpa formulário.
+            alert("Por favor, informe o CEP.");
+            limparEndereco();
+        }
+    });
+});
