@@ -57,10 +57,9 @@ namespace Academia.Repositories {
          * Conta a quantidade de treinos que foram executados no mês atual.
          */
         public int ContarTreinosExecutados() {
-            return _dbContext.HistoricosExercicios.Include(x => x.Exercicio.Agrupamento).Where(
-                h => h.Data.Month == DateTime.Now.Month 
-                && h.Data.Year == DateTime.Now.Year).Count();
-                
+            return _dbContext.HistoricosExercicios.Include(x => x.Exercicio.Agrupamento)
+                .Where(h => h.Data.Month == DateTime.Now.Month && h.Data.Year == DateTime.Now.Year)
+                .GroupBy(h => new { hora = h.Data.ToShortDateString(), minuto = h.Data.ToShortTimeString() , agrupamento = h.Exercicio.Agrupamento }).Count(); 
         }
     }
 }
