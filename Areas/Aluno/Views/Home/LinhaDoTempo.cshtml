@@ -1,0 +1,76 @@
+﻿@model List<HistoricoExercicio>
+@{
+    ViewData["Title"] = "LinhaDoTempo";
+
+    var historicos = Model.GroupBy(h => h.Data.ToShortDateString())
+        .OrderByDescending(h => h.Key).ToList();
+
+    var aluno = Model.Select(h => h.Exercicio.Agrupamento.Treino.Aluno).FirstOrDefault();
+
+    var posicao = "Esquerda";
+
+}
+<div class="text-center">
+    <h3 class="mt-4">Olá, @aluno.Nome! Aqui está o histórico de seus treinos!</h3>
+    <p class="text-muted">Lembre-se, a sua evolução depende do seu foco e determinação! Não espere resultados diferentes fazendo a mesma coisa todo dia, procure sempre evoluir!</p>
+</div>
+<div class="col-12 mt-3">
+
+    <div class="timeline" dir="ltr">
+
+        @foreach (var historico in historicos) {
+            <article class="timeline-item">
+                <div class="time-show mt-0">
+                    <a href="#" class="btn btn-danger width-lg">@historico.Key</a>
+                </div>
+            </article>
+
+            foreach (var item in historico) {
+                if (posicao.Equals("Esquerda")) {
+                    <article class="timeline-item timeline-item-left">
+                        <div class="timeline-desk">
+                            <div class="timeline-box">
+                                <span class="arrow-alt"></span>
+                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                <h2 class="mt-0">@item.Exercicio.TipoExercicio.Nome</h2>
+                                <p><small>Agrupamento: @item.Exercicio.Agrupamento.Descricao</small></p>
+                                <h4 class="mb-0">Carga utilizada: @item.Quantidade</h4>
+                            </div>
+                        </div>
+                    </article>
+                    posicao = "Direita";
+                } else {
+                    <article class="timeline-item timeline-item">
+                        <div class="timeline-desk">
+                            <div class="timeline-box">
+                                <span class="arrow"></span>
+                                <span class="timeline-icon"><i class="mdi mdi-adjust"></i></span>
+                                <h2 class="mt-0">@item.Exercicio.TipoExercicio.Nome</h2>
+                                <p><small>Agrupamento: @item.Exercicio.Agrupamento.Descricao</small></p>
+                                <h4 class="mb-0">Carga utilizada: @item.Quantidade</h4>
+                            </div>
+                        </div>
+                    </article>
+                    posicao = "Esquerda";
+                }
+            }
+        }
+
+        <article class="timeline-item">
+            <h2 class="m-0 d-none">&nbsp;</h2>
+            <div class="time-show">
+                <a href="#" class="btn btn-info width-lg">Início</a>
+            </div>
+        </article>
+
+        <article class="timeline-item invisible">
+            <div class="timeline-desk">
+                <p class="mb-0">Esse é apenas um texto para completar o tamanho completo da linha e o layout não bugar, não consegui ajustar isso no CSS, infelizmente. Ignore essa linha!</p>
+            </div>
+        </article>
+
+
+
+    </div>
+    <!-- end timeline -->
+</div>

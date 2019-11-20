@@ -11,5 +11,7 @@ namespace Academia.Repositories.Interfaces {
 
         int ContarTreinosExecutados();
 
+        List<HistoricoExercicio> ListarHistoricosDoAluno(int idAluno);
+
     }
 }

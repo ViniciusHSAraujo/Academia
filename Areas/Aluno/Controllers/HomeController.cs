@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Academia.Areas.Aluno.Controllers {
     [Area("Aluno")]
+    [Route("{Area}/{Action=index}/{id?}")]
     public class HomeController : Controller {
 
         private IAlunoRepository _alunoRepository;
@@ -37,6 +38,11 @@ namespace Academia.Areas.Aluno.Controllers {
                 ViewBag.AgrupamentoDeHojeIndex = proximoIndice == treino.Agrupamentos.Count() ? 0 : proximoIndice;
             }
             return View(treino);
+        }
+
+        public IActionResult LinhaDoTempo(int id) {
+            var historicos = _historicoExercicioRepository.ListarHistoricosDoAluno(id);
+            return View(historicos);
         }
     }
 }

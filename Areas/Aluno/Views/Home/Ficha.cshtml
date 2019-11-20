@@ -94,10 +94,24 @@
             <div class="mt-4 mb-1">
                 <div class="text-right d-print-none">
                     <a asp-action="Index" class="btn btn-light waves-effect waves-light"><i class="mdi mdi-arrow-left-thick mr-1"></i>Voltar</a>
+                    <button type="button" class="btn btn-purple waves-light" data-toggle="modal" data-target="#historico-modal"><i class="mdi mdi-history mr-1"></i>Visualizar histórico</button>
                     <a href="javascript:window.print()" class="btn btn-primary waves-effect waves-light"><i class="mdi mdi-printer mr-1"></i>Imprimir</a>
                     <button type="button" id="btnSalvarHistorico" class="btn btn-info waves-effect waves-light"><i class="mdi mdi-check mr-1"></i>Marcar como concluído</button>
                 </div>
             </div>
+
+            <div id="historico-modal" class="modal fade p-2">
+                <div class="modal-dialog modal-full">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Histórico de Exercícios do aluno @Model.Aluno.Nome:</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                        <iframe style="border: 0px;" src="https://localhost:5001/aluno/linhadotempo/@Model.Aluno.Id" height="550"></iframe>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 }

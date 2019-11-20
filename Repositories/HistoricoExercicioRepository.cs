@@ -53,6 +53,7 @@ namespace Academia.Repositories {
         public IPagedList<HistoricoExercicio> Listar(int? pagina) {
             return _dbContext.HistoricosExercicios.ToPagedList();
         }
+
         /**
          * Conta a quantidade de treinos que foram executados no mês atual.
          */
@@ -60,6 +61,13 @@ namespace Academia.Repositories {
             return _dbContext.HistoricosExercicios.Include(x => x.Exercicio.Agrupamento)
                 .Where(h => h.Data.Month == DateTime.Now.Month && h.Data.Year == DateTime.Now.Year)
                 .GroupBy(h => new { hora = h.Data.ToShortDateString(), minuto = h.Data.ToShortTimeString() , agrupamento = h.Exercicio.Agrupamento }).Count(); 
+        }
+
+        /**
+         * Lista de Históricos utilizada na linha do tempo do aluno.
+         */
+        public List<HistoricoExercicio> ListarHistoricosDoAluno(int idAluno) {
+            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio.Agrupamento.Treino.Aluno).Include(h => h.Exercicio.TipoExercicio).Where(h => h.Exercicio.Agrupamento.Treino.Aluno.Id == idAluno).ToList();
         }
     }
 }
