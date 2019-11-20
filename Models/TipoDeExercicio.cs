@@ -1,3 +1,4 @@
+using Academia.Libraries.Lang;
 using Academia.Models.Enums;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,11 @@ namespace Academia.Models {
         public int Id { get; set; }
 
         [Display(Name = "Nome")]
+        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         public string Nome { get; set; }
 
         [Display(Name = "Grupo Muscular")]
+        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         public GrupoMuscular GrupoMuscular { get; set; }
     }
 }

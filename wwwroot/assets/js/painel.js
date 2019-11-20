@@ -29,7 +29,7 @@ $("#frmLogin").on("submit", function (event) {
             window.location.href = `${enderecoSite}/professor/`
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 });
@@ -40,6 +40,12 @@ $("#frmLogin").on("submit", function (event) {
 
 $("#frmCadastroProfessor").on("submit", function (event) {
     event.preventDefault();
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmCadastroProfessor").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     $("#btnEnviarRequisicao").attr("disabled", true)
 
     var professor = {
@@ -76,7 +82,7 @@ $("#frmCadastroProfessor").on("submit", function (event) {
             $('#frmCadastroProfessor')[0].reset();
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -89,6 +95,12 @@ $("#frmCadastroProfessor").on("submit", function (event) {
 
 $("#frmEdicaoProfessor").on("submit", function (event) {
     event.preventDefault();
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmEdicaoProfessor").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     $("#btnEnviarRequisicao").attr("disabled", true)
 
     var professor = {
@@ -124,7 +136,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
             PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -137,6 +149,12 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
 
 $("#frmCadastroAluno").on("submit", function (event) {
     event.preventDefault();
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmCadastroAluno").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     $("#btnEnviarRequisicao").attr("disabled", true)
 
     var aluno = {
@@ -171,7 +189,7 @@ $("#frmCadastroAluno").on("submit", function (event) {
             $('#frmCadastroAluno')[0].reset();
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -184,6 +202,12 @@ $("#frmCadastroAluno").on("submit", function (event) {
 
 $("#frmEdicaoAluno").on("submit", function (event) {
     event.preventDefault();
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmEdicaoAluno").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     $("#btnEnviarRequisicao").attr("disabled", true)
 
     var aluno = {
@@ -217,7 +241,7 @@ $("#frmEdicaoAluno").on("submit", function (event) {
             PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -229,6 +253,12 @@ $("#frmEdicaoAluno").on("submit", function (event) {
  */
 
 $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmCadastroTipoDeExercicio").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     event.preventDefault();
     $("#btnEnviarRequisicao").attr("disabled", true)
 
@@ -249,7 +279,7 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
             $('#frmCadastroTipoExercicio')[0].reset();
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -261,6 +291,12 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
  */
 
 $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmEdicaoTipoDeExercicio").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     event.preventDefault();
     $("#btnEnviarRequisicao").attr("disabled", true)
 
@@ -280,7 +316,7 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
             PopUpDeSucesso(dados.msg);
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 
@@ -292,6 +328,7 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
  */
 
 $("#btnAdicionarAgrupamento").click(function () {
+
     $(".selectpicker").selectpicker();
     var descricao = $("#Agrupamento_Descricao").val();
 
@@ -422,6 +459,12 @@ function limparFormAgrupamentos() {
  */
 
 $("#frmCadastroTreino").on("submit", function (event) {
+
+    //Faz a validação dos campos antes de tentar enviar a requisição..
+    if (!$("#frmCadastroTreino").valid()) {
+        return false; //Para a execução por aqui.
+    }
+
     event.preventDefault();
     $("#btnEnviarRequisicao").attr("disabled", true)
 
@@ -483,7 +526,7 @@ $("#frmCadastroTreino").on("submit", function (event) {
             limparFormTreinos();
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors)
+            PopUpDeErro(dados.responseJSON.msg)
         }
     });
 
@@ -539,7 +582,7 @@ $("#btnSalvarHistorico").on("click", function (event) {
             setTimeout(`location.href = '${enderecoSite}/aluno/';`, 3500);
         },
         error: function (dados) {
-            PopUpDeErro(dados.responseJSON.errors);
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 });

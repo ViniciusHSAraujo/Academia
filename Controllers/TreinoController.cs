@@ -24,7 +24,13 @@ namespace Academia.Controllers {
                 _treinoRepository.Cadastrar(treino);
                 return Ok(new { msg = $"O treino do aluno foi cadastrado com sucesso!" });
             } else {
-                return BadRequest();
+                /**
+                 * Pega os erros do Model e coloca em uma string.
+                 */
+                var mensagem = string.Join(" | ", ModelState.Values
+                                            .SelectMany(v => v.Errors)
+                                            .Select(e => e.ErrorMessage));
+                return BadRequest(new { msg = $"{mensagem}" });
             }
         }
 
@@ -34,7 +40,13 @@ namespace Academia.Controllers {
                 _treinoRepository.Editar(treino);
                 return Ok(new { msg = $"O treino do aluno {treino.Aluno.Nome} foi editado com sucesso!" });
             } else {
-                return BadRequest(new { msg = $"Há algo de errado na requisição, verifique e tente novamente." });
+                /**
+                 * Pega os erros do Model e coloca em uma string.
+                 */
+                var mensagem = string.Join(" | ", ModelState.Values
+                                            .SelectMany(v => v.Errors)
+                                            .Select(e => e.ErrorMessage));
+                return BadRequest(new { msg = $"{mensagem}" });
             }
         }
     }

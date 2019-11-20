@@ -107,3 +107,7 @@
         </form>
     </div>
 </div>
+
+@section scripts{
+    @await Html.PartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml")
+}

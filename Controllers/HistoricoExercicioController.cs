@@ -28,7 +28,13 @@ namespace Academia.Controllers {
                 _historicoExercicioRepository.Cadastrar(historicosExercicios);
                 return Ok(new { msg = $"O histórico de seu treino foi cadastrado com sucesso!" });
             } else {
-                return BadRequest();
+                /**
+                 * Pega os erros do Model e coloca em uma string.
+                 */
+                var mensagem = string.Join(" | ", ModelState.Values
+                                            .SelectMany(v => v.Errors)
+                                            .Select(e => e.ErrorMessage));
+                return BadRequest(new { msg = $"{mensagem}" });
             }
         }
     }
