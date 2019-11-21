@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Academia.Libraries.Filters;
 using Academia.Models.ViewModel;
 using Academia.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Academia.Areas.Professor.Controllers {
+    [ProfessorAuthorization]
     [Area("Professor")]
     public class TreinoController : Controller {
 

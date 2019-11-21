@@ -22,7 +22,7 @@ namespace Academia.Areas.Aluno.Controllers {
         }
 
         public IActionResult Index() {
-            ViewBag.Alunos = _alunoRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
+            ViewBag.Alunos = _alunoRepository.Listar().Select(c => new SelectListItem($"{c.Id.ToString()} - {c.Nome}", c.Id.ToString()));
             return View();
         }
 

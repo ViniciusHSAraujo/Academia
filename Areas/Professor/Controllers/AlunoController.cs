@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Academia.Libraries.Filters;
 using Academia.Libraries.Login;
 using Academia.Models;
 using Academia.Repositories.Interfaces;
@@ -10,6 +11,7 @@ using Newtonsoft.Json;
 
 namespace Academia.Areas.Aluno.Controllers {
 
+    [ProfessorAuthorization]
     [Area("Professor")]
     public class AlunoController : Controller {
 

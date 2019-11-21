@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Academia.Libraries.Filters;
 using Academia.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Academia.Areas.Professor.Controllers {
+    [ProfessorAuthorization]
     [Area("Professor")]
     public class TipoDeExercicioController : Controller {
 

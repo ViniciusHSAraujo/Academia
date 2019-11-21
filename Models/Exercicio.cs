@@ -10,9 +10,9 @@ namespace Academia.Models {
         [Display(Name = "Id")]
         public int Id { get; set; }
 
-        public int TipoExercicioId { get; set; }
         [Display(Name = "Tipo de Exercício")]
         [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
+        public int TipoExercicioId { get; set; }
         public virtual TipoExercicio TipoExercicio { get; set; }
 
         [Display(Name = "Séries")]

@@ -51,7 +51,7 @@ namespace Academia.Repositories {
          * Conta a quantidade de professores que estão ativos (já foram admitidos e não foram demitidos ainda).
          */
         public int ContarProfessoresAtivos() {
-            return _dbContext.Professores.Where(p => p.Admissao < DateTime.Now && ((p.Demissao.HasValue && p.Demissao.Value > DateTime.Now) || !p.Demissao.HasValue)).Count();
+            return _dbContext.Professores.Where(p => p.Admissao <= DateTime.Now.Date && ((p.Demissao.HasValue && p.Demissao.Value > DateTime.Now.Date) || !p.Demissao.HasValue)).Count();
         }
     }
 }

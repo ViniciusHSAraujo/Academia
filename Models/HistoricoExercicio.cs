@@ -20,7 +20,7 @@ namespace Academia.Models {
 
         [Display(Name = "Quantidade")]
         [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
-        [Range(1, 999, ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E011")]
+        [Range(0, 999, ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E011")]
         public int Quantidade { get; set; }
 
     }

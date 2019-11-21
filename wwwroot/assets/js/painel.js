@@ -52,10 +52,10 @@ $("#frmCadastroProfessor").on("submit", function (event) {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
         Salario: $("#Salario").val(),
-        Admissao: moment($("#Admissao")).format("YYYY-MM-DD HH:mm:ss"),
-        Demissao: moment($("#Demissao")).format("YYYY-MM-DD HH:mm:ss"),
+        Admissao: $("#Admissao").val(),
+        Demissao: $("#Demissao").val(),
         Turno: $("#Turno").val(),
-        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
+        DataNascimento: $("#DataNascimento").val(),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -110,7 +110,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
         Admissao: $("#Admissao").val(),
         Demissao: $("#Demissao").val(),
         Turno: $("#Turno").val(),
-        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
+        DataNascimento: $("#DataNascimento").val(),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -160,8 +160,8 @@ $("#frmCadastroAluno").on("submit", function (event) {
     var aluno = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        DataCadastro: moment(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
+        DataCadastro: moment(new Date()).format("YYYY-MM-DD"),
+        DataNascimento: $("#DataNascimento").val(),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -213,8 +213,8 @@ $("#frmEdicaoAluno").on("submit", function (event) {
     var aluno = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        DataCadastro: moment($("#DataCadastro")).format("YYYY-MM-DD HH:mm:ss"),
-        DataNascimento: moment($("#DataNascimento")).format("YYYY-MM-DD HH:mm:ss"),
+        DataCadastro: $("#DataCadastro").val(),
+        DataNascimento: $("#DataNascimento").val(),
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
@@ -276,7 +276,7 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
         data: JSON.stringify(tipoDeExercicio),
         success: function (dados) {
             PopUpDeSucesso(dados.msg);
-            $('#frmCadastroTipoExercicio')[0].reset();
+            $('#frmCadastroTipoDeExercicio')[0].reset();
         },
         error: function (dados) {
             PopUpDeErro(dados.responseJSON.msg);
@@ -459,12 +459,6 @@ function limparFormAgrupamentos() {
  */
 
 $("#frmCadastroTreino").on("submit", function (event) {
-
-    //Faz a validação dos campos antes de tentar enviar a requisição..
-    if (!$("#frmCadastroTreino").valid()) {
-        return false; //Para a execução por aqui.
-    }
-
     event.preventDefault();
     $("#btnEnviarRequisicao").attr("disabled", true)
 
@@ -472,9 +466,10 @@ $("#frmCadastroTreino").on("submit", function (event) {
         AlunoId: $("#Treino_Aluno").val(),
         ProfessorId: $("#Treino_Professor").val(),
         Objetivo: $("#Treino_Objetivo").val(),
-        DataInicio: moment($("#Treino_DataInicio")).format("YYYY-MM-DD HH:mm:ss"),
-        DataFim: moment($("#Treino_DataFim")).format("YYYY-MM-DD HH:mm:ss"),
-        Agrupamentos: listaDeAgrupamentos
+        DataInicio: moment($("#Treino_DataInicio").val(), "DD/MM/YYYY").format("YYYY-MM-DD"),
+        DataFim: moment($("#Treino_DataFim").val(), "DD/MM/YYYY").format("YYYY-MM-DD"),
+        Agrupamentos: listaDeAgrupamentos,
+        Situacao: true
     };
 
     //Validações
@@ -561,8 +556,20 @@ $("#btnSalvarHistorico").on("click", function (event) {
     $("#btnSalvarHistorico").attr("disabled", true)
 
     let historicosDosExercicios = [];
+    let isValid = true;
 
     $('#tblFichaExercicios > tbody  > tr').each(function () {
+
+        /**
+         * Verifica se foram informadas as cargas utilizadas nos exercícios.
+         */
+        if (!$(this).find('#Exercicio_Quantidade').val()) {
+            PopUpDeErro("Ops, informe a carga utilizada em todos os exercícios!");
+            $(this).find('#Exercicio_Quantidade').focus();
+            $("#btnSalvarHistorico").attr("disabled", false)
+            isValid = false;
+            return false;
+        }
 
         let exercicio = {
             ExercicioId: $(this).find("#Exercicio_Id").text(),
@@ -570,21 +577,23 @@ $("#btnSalvarHistorico").on("click", function (event) {
         }
         historicosDosExercicios.push(exercicio);
     });
-
-    $.ajax({
-        type: "post",
-        url: `${enderecoAPI}/HistoricoExercicio`,
-        dataType: "json",
-        contentType: "application/json",
-        data: JSON.stringify(historicosDosExercicios),
-        success: function (dados) {
-            PopUpDeSucesso(`${dados.msg} A página será recarregada em instantes.`);
-            setTimeout(`location.href = '${enderecoSite}/aluno/';`, 3500);
-        },
-        error: function (dados) {
-            PopUpDeErro(dados.responseJSON.msg);
-        }
-    });
+    if (isValid) {
+        $.ajax({
+            type: "post",
+            url: `${enderecoAPI}/HistoricoExercicio`,
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(historicosDosExercicios),
+            success: function (dados) {
+                PopUpDeSucesso(`${dados.msg} A página será recarregada em instantes.`);
+                setTimeout(`location.href = '${enderecoSite}/aluno/';`, 3500);
+            },
+            error: function (dados) {
+                PopUpDeErro(dados.responseJSON.msg);
+                $("#btnSalvarHistorico").attr("disabled", false)
+            }
+        });
+    }
 });
 
 
@@ -645,10 +654,21 @@ function limparEndereco() {
     $("#Endereco_UF").val("");
 }
 
-/**
- * Validação de CEP e busca no webservice da PostMon. 
- */
+
 $(document).ready(function () {
+
+    /**
+    * Máscaras 
+    */
+
+    $('.celular').mask('(00) 00000-0000');
+    $('.cpf').mask('000.000.000-00', { reverse: true });
+    $('.dinheiro').mask("###.00", { reverse: true });
+    $('.cep').mask('00000-000');
+
+    /**
+    * Validação de CEP e busca no webservice da PostMon.
+    */
 
     //Quando o campo cep perde o foco.
     $("#Endereco_Cep").blur(function () {

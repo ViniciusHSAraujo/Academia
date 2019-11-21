@@ -35,6 +35,8 @@ namespace Academia.Controllers {
 
         [HttpPut]
         public IActionResult Put([FromBody]Aluno aluno) {
+            ModelState.Remove("Senha");
+            ModelState.Remove("ConfirmacaoSenha");
             if (ModelState.IsValid) {
                 _alunoRepository.Editar(aluno);
                 return Ok(new { msg = $"O cadastro do aluno {aluno.Nome} foi editado com sucesso!" });

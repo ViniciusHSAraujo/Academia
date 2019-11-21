@@ -19,6 +19,10 @@ namespace Academia.Controllers {
 
         [HttpPost]
         public IActionResult Post([FromBody]Treino treino) {
+            ModelState.Remove("Aluno");
+            ModelState.Remove("Professor");
+            ModelState.Remove("TipoExercicio");
+
             if (ModelState.IsValid) {
 
                 _treinoRepository.Cadastrar(treino);
