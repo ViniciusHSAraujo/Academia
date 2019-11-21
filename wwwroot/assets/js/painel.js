@@ -729,10 +729,10 @@ $(document).ready(function () {
 });
 
 /*
- * Formulário de Exclusão
+ * Formulário de Exclusão de Aluno
  */
 
-$(".frmExclusao").on("submit", function (event) {
+$(".frmExclusaoAluno").on("submit", function (event) {
     event.preventDefault();
 
     let id = $(this).find("#id").val();
@@ -752,6 +752,34 @@ $(".frmExclusao").on("submit", function (event) {
         },
         error: function (dados) {
             PopUpDeErro("Houve um erro ao tentar excluir esse aluno, tente inativá-lo em seu cadastro.");
+        }
+    });
+});
+
+/*
+ * Formulário de Exclusão de Professor
+ */
+
+$(".frmExclusaoProfessor").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let linha = $(this).closest('tr');
+
+
+    $.ajax({
+        type: "delete",
+        url: `${enderecoAPI}/professor`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+            $(this).closest('tr').remove();
+            PopUpDeInformacao("Professor excluído com sucesso!");
+            linha.remove();
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar excluir esse professor, Se foi demitido, basta informar isso em seu cadastro e o mesmo será inativado.");
         }
     });
 });
