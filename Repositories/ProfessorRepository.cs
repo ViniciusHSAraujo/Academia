@@ -26,7 +26,15 @@ namespace Academia.Repositories {
         }
 
         public void Editar(Professor obj) {
+            _dbContext.Entry(obj).Property(p => p.Senha).IsModified = false;
             _dbContext.Update(obj);
+            _dbContext.SaveChanges();
+        }
+
+        public void TrocarSenha(Professor obj) {
+            var objBanco = Buscar(obj.Id);
+
+            objBanco.Senha = obj.Senha;
             _dbContext.SaveChanges();
         }
 

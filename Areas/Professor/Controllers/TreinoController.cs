@@ -38,6 +38,7 @@ namespace Academia.Areas.Professor.Controllers {
         }
 
         public IActionResult Editar(int id) {
+            //TODO - Fazer a edição dos treinos.
             return View();
         }
 

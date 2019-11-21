@@ -667,6 +667,17 @@ $(document).ready(function () {
     $('.cep').mask('00000-000');
 
     /**
+     * Validação de clique dos botões vermelhos.
+     */
+
+    $(".operacao-de-risco").click(function (e) {
+        var resultado = confirm("Tem certeza que deseja realizar esta operação?");
+        if (resultado == false) {
+            e.preventDefault();
+        }
+    });
+
+    /**
     * Validação de CEP e busca no webservice da PostMon.
     */
 
@@ -713,6 +724,34 @@ $(document).ready(function () {
             //cep sem valor, limpa formulário.
             alert("Por favor, informe o CEP.");
             limparEndereco();
+        }
+    });
+});
+
+/*
+ * Formulário de Exclusão
+ */
+
+$(".frmExclusao").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let linha = $(this).closest('tr');
+
+
+    $.ajax({
+        type: "delete",
+        url: `${enderecoAPI}/aluno`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+            $(this).closest('tr').remove();
+            PopUpDeInformacao("Aluno excluído com sucesso!");
+            linha.remove();
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar excluir esse aluno, tente inativá-lo em seu cadastro.");
         }
     });
 });

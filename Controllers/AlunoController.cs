@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Academia.Models;
 using Academia.Repositories.Interfaces;
@@ -50,5 +52,16 @@ namespace Academia.Controllers {
                 return BadRequest(new { msg = $"{mensagem}" });
             }
         }
+
+        [HttpDelete]
+        public IActionResult Excluir([FromBody]int id) {
+            try {
+                _alunoRepository.Excluir(id);
+                return Ok(new { msg = "Excluído com sucesso."});
+            } catch (Exception) {
+                return new StatusCodeResult(412); // Pré-condição falhou, pois provavelmente esse registro há relacionamentos que o impedem de ser excluído.
+            }
+        }
+
     }
 }

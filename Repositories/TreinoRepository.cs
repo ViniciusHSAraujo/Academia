@@ -47,7 +47,7 @@ namespace Academia.Repositories {
          * Conta a quantidade de treinos que estão com a situação ativa que estejam entre sua data de inicio e fim.
          */
         public int ContarTreinosAtivos() {
-            return _dbContext.Treinos.Where(t => (t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now) && t.Situacao == true).Count();
+            return _dbContext.Treinos.Where(t => (t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now) && t.Situacao == true).GroupBy(t => t.Aluno).Count();
         }
     }
 }

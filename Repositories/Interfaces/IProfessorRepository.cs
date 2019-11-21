@@ -9,5 +9,7 @@ namespace Academia.Repositories.Interfaces {
 
         Professor Login(string email, string senha);
         int ContarProfessoresAtivos();
+
+        void TrocarSenha(Professor obj);
     }
 }
