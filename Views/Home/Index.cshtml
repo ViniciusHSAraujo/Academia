@@ -1,8 +1,45 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    Layout = "_LoginLayout";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    @await Html.PartialAsync("_Head")
+</head>
+
+<body>
+
+    <div class="mt-5 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+
+                    <div class="text-center">
+                        <h2>
+                            <a href="index.html">
+                                <img src="assets/images/logo-dark.png" alt="main-logo" height="64">
+                            </a>
+                        </h2>
+
+                        <h3 class="mt-4">Bem vindo ao Connect Gym!</h3>
+                        <p class="text-muted">Para começar a utilizar o nosso sistema, escolha qual área você deseja entrar clicando nos botões abaixo.</p>
+
+                        <a asp-area="Aluno" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-primary waves-effect waves-light mt-2 mr-1 col-5">Área do Aluno</a>
+                        <a asp-area="Professor" asp-controller="Home" asp-action="Index" class="btn btn-lg btn-success waves-effect waves-light mt-2 mr-1 col-5">Área do Professor</a>
+                    </div> <!-- end /.text-center-->
+
+                </div> <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </div>
+
+    @await Html.PartialAsync("_Footer")
+
+    @await Html.PartialAsync("_Scripts")
+
+</body>
+</html>

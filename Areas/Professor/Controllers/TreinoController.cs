@@ -31,9 +31,9 @@ namespace Academia.Areas.Professor.Controllers {
         }
 
         public IActionResult Cadastrar() {
-            ViewBag.Alunos = _alunoRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
-            ViewBag.Professores = _professorRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
-            ViewBag.TiposDeExercicios = _tipoDeExercicioRepository.Listar().Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
+            ViewBag.Alunos = _alunoRepository.Listar().Where(a => a.Status).Select(a => new SelectListItem(a.Nome, a.Id.ToString()));
+            ViewBag.Professores = _professorRepository.Listar().Where(p => p.Admissao <= DateTime.Now.Date && ((p.Demissao.HasValue && p.Demissao.Value > DateTime.Now.Date) || !p.Demissao.HasValue)).Select(p => new SelectListItem(p.Nome, p.Id.ToString()));
+            ViewBag.TiposDeExercicios = _tipoDeExercicioRepository.Listar().Where(t => t.Situacao).Select(c => new SelectListItem(c.Nome, c.Id.ToString()));
             return View();
         }
 
