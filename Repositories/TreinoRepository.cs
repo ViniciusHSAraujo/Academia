@@ -43,9 +43,15 @@ namespace Academia.Repositories {
             return _dbContext.Treinos.AsNoTracking().Include(t => t.Aluno).Include(t => t.Professor).ToList();
         }
 
-        public IPagedList<Treino> Listar(int? pagina) {
+        public IPagedList<Treino> Listar(int? pagina, string pesquisa) {
             int numeroDaPagina = pagina ?? 1;
             int registrosPorPagina = 10;
+
+            if (!string.IsNullOrEmpty(pesquisa)) {
+                pesquisa = pesquisa.Trim().ToLower();
+                return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).Where(t => t.Professor.Nome.ToLower().Contains(pesquisa) || t.Aluno.Nome.ToLower().Contains(pesquisa)).ToPagedList(numeroDaPagina, registrosPorPagina);
+            }
+
             return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).ToPagedList(numeroDaPagina, registrosPorPagina);
         }
         /**

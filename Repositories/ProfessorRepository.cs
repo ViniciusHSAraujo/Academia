@@ -48,9 +48,15 @@ namespace Academia.Repositories {
             return _dbContext.Professores.ToList();
         }
 
-        public IPagedList<Professor> Listar(int? pagina) {
+        public IPagedList<Professor> Listar(int? pagina, string pesquisa) {
             int numeroDaPagina = pagina ?? 1;
             int registrosPorPagina = 10;
+
+            if (!string.IsNullOrEmpty(pesquisa)) {
+                pesquisa = pesquisa.Trim().ToLower();
+                return _dbContext.Professores.Where(t => t.Nome.ToLower().Contains(pesquisa) || t.Email.ToLower().Contains(pesquisa)).ToPagedList(numeroDaPagina, registrosPorPagina);
+            }
+
             return _dbContext.Professores.ToPagedList(numeroDaPagina, registrosPorPagina);
         }
 

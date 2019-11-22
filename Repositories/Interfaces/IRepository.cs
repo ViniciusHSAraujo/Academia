@@ -13,7 +13,7 @@ namespace Academia.Repositories.Interfaces {
         void Excluir(int id);
         T Buscar(int id);
         List<T> Listar();
-        IPagedList<T> Listar(int? pagina);
+        IPagedList<T> Listar(int? pagina, string pesquisa);
 
     }
 }

@@ -21,8 +21,8 @@ namespace Academia.Areas.Aluno.Controllers {
             _alunoRepository = alunoRepository;
         }
 
-        public IActionResult Index(int? pagina) {
-            var alunos = _alunoRepository.Listar(pagina);
+        public IActionResult Index(int? pagina, string pesquisa) {
+            var alunos = _alunoRepository.Listar(pagina, pesquisa);
             return View(alunos);
         }
 
