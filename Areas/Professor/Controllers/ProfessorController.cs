@@ -20,7 +20,7 @@ namespace Academia.Areas.Professor.Controllers {
             _professorRepository = professorRepository;
         }
 
-        public IActionResult Index() {
+        public IActionResult Index(int? pagina) {
             var professores = _professorRepository.Listar();
             return View(professores);
         }

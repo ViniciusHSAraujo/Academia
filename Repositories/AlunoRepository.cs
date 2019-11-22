@@ -41,7 +41,9 @@ namespace Academia.Repositories {
         }
 
         public IPagedList<Aluno> Listar(int? pagina) {
-            return _dbContext.Alunos.ToPagedList();
+            int numeroDaPagina = pagina ?? 1;
+            int registrosPorPagina = 10;
+            return _dbContext.Alunos.ToPagedList(numeroDaPagina, registrosPorPagina);
         }
 
         /**

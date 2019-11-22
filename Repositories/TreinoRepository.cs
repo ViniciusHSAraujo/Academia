@@ -44,7 +44,9 @@ namespace Academia.Repositories {
         }
 
         public IPagedList<Treino> Listar(int? pagina) {
-            return _dbContext.Treinos.ToPagedList();
+            int numeroDaPagina = pagina ?? 1;
+            int registrosPorPagina = 10;
+            return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).ToPagedList(numeroDaPagina, registrosPorPagina);
         }
         /**
          * Conta a quantidade de treinos que estão com a situação ativa que estejam entre sua data de inicio e fim.

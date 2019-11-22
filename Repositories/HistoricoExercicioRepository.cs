@@ -51,7 +51,9 @@ namespace Academia.Repositories {
         }
 
         public IPagedList<HistoricoExercicio> Listar(int? pagina) {
-            return _dbContext.HistoricosExercicios.ToPagedList();
+            int numeroDaPagina = pagina ?? 1;
+            int registrosPorPagina = 10;
+            return _dbContext.HistoricosExercicios.Include(h => h.Exercicio).ToPagedList(numeroDaPagina, registrosPorPagina);
         }
 
         /**

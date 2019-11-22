@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Funcionários";
+    var pesquisa = Context.Request.Query["pesquisa"];
 }
 <div class="card-box mt-3">
     <h4 class="header-title">Funcionários</h4>
@@ -9,51 +10,50 @@
         Funcionários cadastrados no sistema.
     </p>
 
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Nome)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Turno)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Telefone)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
                 <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Nome)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Turno)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Telefone)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Email)
-                    </th>
-                    <th>Ações</th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Turno)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Telefone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Editar", "Editar", "Professor", new { Area = "Professor", item.Id }, new { @class = "btn btn-warning btn-rounded" })
+                        @Html.ActionLink("Detalhar", "Detalhar", new { Area = "Professor", item.Id }, new { @class = "btn btn-info btn-rounded" })
+                        <form class="frmExclusaoProfessor d-inline">
+                            <input name="id" id="id" value="@item.Id" class="form-control" hidden />
+                            <input type="submit" value="Excluir" class="btn btn-danger btn-rounded operacao-de-risco" />
+                        </form>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model) {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Nome)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Turno)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Telefone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Editar", "Editar", "Professor", new { Area = "Professor", item.Id }, new { @class = "btn btn-warning btn-rounded" })
-                            @Html.ActionLink("Detalhar", "Detalhar", new { Area = "Professor", item.Id }, new { @class = "btn btn-info btn-rounded" })
-                            <form class="frmExclusaoProfessor d-inline">
-                                <input name="id" id="id" value="@item.Id" class="form-control" hidden />
-                                <input type="submit" value="Excluir" class="btn btn-danger btn-rounded operacao-de-risco" />
-                            </form>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+            }
+        </tbody>
+    </table>
+    @Html.PagedListPager((IPagedList)Model, pagina => Url.Action("Index", new { pagina = pagina, pesquisa = pesquisa }))
 </div>

@@ -17,8 +17,8 @@ namespace Academia.Areas.Professor.Controllers {
             _tipoDeExercicioRepository = tipoDeExercicioRepository;
         }
 
-        public IActionResult Index() {
-            var tipoDeExercicio = _tipoDeExercicioRepository.Listar();
+        public IActionResult Index(int? pagina) {
+            var tipoDeExercicio = _tipoDeExercicioRepository.Listar(pagina);
             return View(tipoDeExercicio);
         }
 
