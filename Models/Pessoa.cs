@@ -36,17 +36,5 @@ namespace Academia.Models {
         [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         [EmailAddress(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E004")]
         public string Email { get; set; }
-
-        [Display(Name = "Senha")]
-        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
-        [MinLength(6, ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E002")]
-        [MaxLength(32, ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E003")]
-        public string Senha { get; set; }
-
-        [Display(Name = "Confirmação da Senha")]
-        //[Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
-        //[Compare("Senha", ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E005")]
-        [NotMapped]
-        public string ConfirmacaoSenha { get; set; }
     }
 }

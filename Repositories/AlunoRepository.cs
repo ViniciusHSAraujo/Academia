@@ -44,9 +44,6 @@ namespace Academia.Repositories {
             return _dbContext.Alunos.ToPagedList();
         }
 
-        public Aluno Login(string email, string senha) {
-            return _dbContext.Alunos.Where(a => a.Email.Equals(email) && a.Senha.Equals(senha)).FirstOrDefault();
-        }
         /**
          * Conta a quantidade de treinos que estão com a situação ativa.
          */

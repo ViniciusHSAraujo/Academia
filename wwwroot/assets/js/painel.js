@@ -60,6 +60,7 @@ $("#frmCadastroProfessor").on("submit", function (event) {
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
         Senha: $("#Senha").val(),
+        ConfirmacaoSenha: $("#Senha").val(),
         Endereco: {
             Cep: $("#Endereco_Cep").val(),
             Rua: $("#Endereco_Rua").val(),
@@ -115,6 +116,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
         Senha: $("#Senha").val(),
+        ConfirmacaoSenha: $("#Senha").val(),
         Endereco: {
             Cep: $("#Endereco_Cep").val(),
             Rua: $("#Endereco_Rua").val(),
@@ -165,7 +167,6 @@ $("#frmCadastroAluno").on("submit", function (event) {
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
-        Senha: $("#Senha").val(),
         Endereco: {
             Cep: $("#Endereco_Cep").val(),
             Rua: $("#Endereco_Rua").val(),
@@ -218,7 +219,6 @@ $("#frmEdicaoAluno").on("submit", function (event) {
         Telefone: $("#Telefone").val(),
         Sexo: $("#Sexo").val(),
         Email: $("#Email").val(),
-        Senha: $("#Senha").val(),
         Endereco: {
             Cep: $("#Endereco_Cep").val(),
             Rua: $("#Endereco_Rua").val(),
