@@ -15,9 +15,12 @@ namespace Academia.Repositories {
         public TreinoRepository(ApplicationDbContext dbContext) {
             _dbContext = dbContext;
         }
-
         public Treino Buscar(int id) {
-            return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).Include(t => t.Agrupamentos).ThenInclude(a => a.Exercicios).ThenInclude(e => e.TipoExercicio).Where(t => t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now && t.Situacao == true && t.Aluno.Id == id).LastOrDefault();
+            return _dbContext.Treinos.Include(t => t.Agrupamentos).ThenInclude(a => a.Exercicios).FirstOrDefault(t => t.Id == id);
+        }
+
+        public Treino BuscarUltimoTreinoDoAluno(int idAluno) {
+            return _dbContext.Treinos.Include(t => t.Aluno).Include(t => t.Professor).Include(t => t.Agrupamentos).ThenInclude(a => a.Exercicios).ThenInclude(e => e.TipoExercicio).Where(t => t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now && t.Situacao == true && t.Aluno.Id == idAluno).LastOrDefault();
         }
 
         public void Cadastrar(Treino obj) {
@@ -49,5 +52,16 @@ namespace Academia.Repositories {
         public int ContarTreinosAtivos() {
             return _dbContext.Treinos.Where(t => (t.DataInicio < DateTime.Now && t.DataFim > DateTime.Now) && t.Situacao == true).GroupBy(t => t.Aluno).Count();
         }
+
+        /**
+         * Se a situação do treino para a contrária da que ele se encontra.
+         */
+        public bool AtivarOuDesativar(int id) {
+            var treino = Buscar(id);
+            treino.Situacao = !treino.Situacao;
+            _dbContext.SaveChanges();
+            return treino.Situacao;
+        }
+
     }
 }

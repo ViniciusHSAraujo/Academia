@@ -52,7 +52,7 @@
                         <td>
                             @Html.ActionLink("Editar", "Editar", new { item.Id }, new { @class = "btn btn-warning btn-rounded" })
                             @Html.ActionLink("Detalhar", "Detalhar", new { item.Id }, new { @class = "btn btn-info btn-rounded" })
-                            <form asp-controller="Aluno" asp-action="Excluir" method="delete" class="frmExclusaoAluno" style="display: inline">
+                            <form method="delete" class="frmExclusaoAluno" style="display: inline">
                                 <input name="id" id="id" value="@item.Id" class="form-control" hidden />
                                 <input type="submit" value="Excluir" class="btn btn-danger btn-rounded operacao-de-risco" />
                             </form>

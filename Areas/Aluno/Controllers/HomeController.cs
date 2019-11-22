@@ -28,9 +28,14 @@ namespace Academia.Areas.Aluno.Controllers {
 
         [HttpPost]
         public IActionResult Ficha(int id) {
-            var treino = _treinoRepository.Buscar(id);
+            var treino = _treinoRepository.BuscarUltimoTreinoDoAluno(id);
             var ultimoExercicio = _historicoExercicioRepository.BuscarUltimoExercicioDoAluno(id);
+
+
+
             if (ultimoExercicio == null) {
+                ViewBag.AgrupamentoDeHojeIndex = 0;
+            } else if (treino != ultimoExercicio.Exercicio.Agrupamento.Treino) {
                 ViewBag.AgrupamentoDeHojeIndex = 0;
             } else {
                 var proximoIndice = treino.Agrupamentos.IndexOf(ultimoExercicio.Exercicio.Agrupamento) + 1;

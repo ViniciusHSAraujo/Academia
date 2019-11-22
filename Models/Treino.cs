@@ -11,7 +11,6 @@ namespace Academia.Models {
         public int Id { get; set; }
 
         [Display(Name = "Aluno")]
-        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         public int? AlunoId { get; set; }
 
         [ForeignKey("AlunoId")]
@@ -20,7 +19,6 @@ namespace Academia.Models {
         public Aluno Aluno { get; set; }
 
         [Display(Name = "Professor")]
-        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         public int? ProfessorId { get; set; }
         [ForeignKey("ProfessorId")]
         [Display(Name = "Professor")]

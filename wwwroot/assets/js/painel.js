@@ -265,7 +265,8 @@ $("#frmCadastroTipoDeExercicio").on("submit", function (event) {
     var tipoDeExercicio = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        GrupoMuscular: $("#GrupoMuscular").val()
+        GrupoMuscular: $("#GrupoMuscular").val(),
+        Situacao: $("#Situacao").is(':checked')
     }
 
     $.ajax({
@@ -303,11 +304,12 @@ $("#frmEdicaoTipoDeExercicio").on("submit", function (event) {
     var tipoDeExercicio = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
-        GrupoMuscular: $("#GrupoMuscular").val()
+        GrupoMuscular: $("#GrupoMuscular").val(),
+        Situacao: $("#Situacao").is(':checked')
     }
 
     $.ajax({
-        type: "patch",
+        type: "Put",
         url: `${enderecoAPI}/TipoDeExercicio`,
         dataType: "json",
         contentType: "application/json",
@@ -780,6 +782,126 @@ $(".frmExclusaoProfessor").on("submit", function (event) {
         },
         error: function (dados) {
             PopUpDeErro("Houve um erro ao tentar excluir esse professor, Se foi demitido, basta informar isso em seu cadastro e o mesmo será inativado.");
+        }
+    });
+});
+
+/*
+ * Formulário de Exclusão de Tipos de Exercício
+ */
+
+$(".frmExclusaoTipoDeExercicio").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let linha = $(this).closest('tr');
+
+
+    $.ajax({
+        type: "delete",
+        url: `${enderecoAPI}/tipodeexercicio`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+            $(this).closest('tr').remove();
+            PopUpDeInformacao("Tipo de Exercício excluído com sucesso!");
+            linha.remove();
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar excluir esse tipo de exercício, tente inativá-lo pelo botão ao lado.");
+        }
+    });
+});
+
+/*
+ * Formulário de Exclusão de Treinos
+ */
+
+$(".frmExclusaoTreino").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let linha = $(this).closest('tr');
+
+
+    $.ajax({
+        type: "delete",
+        url: `${enderecoAPI}/treino`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+            $(this).closest('tr').remove();
+            PopUpDeInformacao("Treino excluído com sucesso!");
+            linha.remove();
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar excluir esse treino, pois ele já foi executado. Tente inativá-lo na opção ao lado.");
+        }
+    });
+});
+
+/*
+ * Formulário de Inativação de Treinos
+ */
+
+$(".frmInativacaoTreino").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let button = $(this).find("#btnInativacao");
+
+    $.ajax({
+        type: "patch",
+        url: `${enderecoAPI}/treino`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+
+            if (button.val() == "Ativar") {
+                button.val("Inativar");
+            } else {
+                button.val("Ativar")
+            }
+
+            PopUpDeInformacao(dados.msg);
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar fazer a operação. Tente novamente.");
+        }
+    });
+});
+
+/*
+ * Formulário de Inativação de Tipos de Exercícios
+ */
+
+$(".frmInativacaoTipoDeExercicio").on("submit", function (event) {
+    event.preventDefault();
+
+    let id = $(this).find("#id").val();
+    let button = $(this).find("#btnInativacao");
+
+    $.ajax({
+        type: "patch",
+        url: `${enderecoAPI}/TipoDeExercicio`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(id),
+        success: function (dados) {
+
+            if (button.val() == "Ativar") {
+                button.val("Inativar");
+            } else {
+                button.val("Ativar")
+            }
+
+            PopUpDeInformacao(dados.msg);
+        },
+        error: function (dados) {
+            PopUpDeErro("Houve um erro ao tentar fazer a operação. Tente novamente.");
         }
     });
 });

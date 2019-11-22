@@ -17,7 +17,7 @@ namespace Academia.Repositories {
         }
 
         public TipoExercicio Buscar(int id) {
-            return _dbContext.TiposExercicios.AsNoTracking().SingleOrDefault(t => t.Id == id);
+            return _dbContext.TiposExercicios.SingleOrDefault(t => t.Id == id);
         }
 
         public void Cadastrar(TipoExercicio obj) {
@@ -43,5 +43,16 @@ namespace Academia.Repositories {
         public IPagedList<TipoExercicio> Listar(int? pagina) {
             return _dbContext.TiposExercicios.ToPagedList();
         }
+
+        /**
+         * Se a situação do treino para a contrária da que ele se encontra.
+         */
+        public bool AtivarOuDesativar(int id) {
+            var tipoExercicio = Buscar(id);
+            tipoExercicio.Situacao = !tipoExercicio.Situacao;
+            _dbContext.SaveChanges();
+            return tipoExercicio.Situacao;
+        }
     }
 }
+

@@ -16,5 +16,10 @@ namespace Academia.Models {
         [Display(Name = "Grupo Muscular")]
         [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         public GrupoMuscular GrupoMuscular { get; set; }
+
+        [Display(Name = "Situacao")]
+        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
+        public bool Situacao { get; set; }
+
     }
 }

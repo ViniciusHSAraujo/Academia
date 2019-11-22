@@ -33,7 +33,7 @@ namespace Academia.Controllers {
             }
         }
 
-        [HttpPatch]
+        [HttpPut]
         public IActionResult Put([FromBody]TipoExercicio tipoExercicio) {
             if (ModelState.IsValid) {
                 _tipoDeExercicioRepository.Editar(tipoExercicio);
@@ -46,6 +46,27 @@ namespace Academia.Controllers {
                                             .SelectMany(v => v.Errors)
                                             .Select(e => e.ErrorMessage));
                 return BadRequest(new { msg = $"{mensagem}" });
+            }
+        }
+
+        [HttpPatch]
+        public IActionResult AtivarOuInativar([FromBody]int id) {
+            var situacao = _tipoDeExercicioRepository.AtivarOuDesativar(id);
+
+            if (situacao) {
+                return Ok(new { msg = "Tipo de Exercício ativado com sucesso." });
+            } else {
+                return Ok(new { msg = "Tipo de Exercício inativado com sucesso." });
+            }
+        }
+
+        [HttpDelete]
+        public IActionResult Excluir([FromBody]int id) {
+            try {
+                _tipoDeExercicioRepository.Excluir(id);
+                return Ok(new { msg = "Excluído com sucesso." });
+            } catch (Exception) {
+                return new StatusCodeResult(412); // Pré-condição falhou, pois provavelmente esse registro há relacionamentos que o impedem de ser excluído.
             }
         }
     }

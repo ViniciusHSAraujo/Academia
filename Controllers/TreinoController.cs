@@ -53,5 +53,27 @@ namespace Academia.Controllers {
                 return BadRequest(new { msg = $"{mensagem}" });
             }
         }
+
+        [HttpDelete]
+        public IActionResult Excluir([FromBody]int id) {
+            try {
+                _treinoRepository.Excluir(id);
+                return Ok(new { msg = "Excluído com sucesso." });
+            } catch (Exception) {
+                return new StatusCodeResult(412); // Pré-condição falhou, pois provavelmente esse registro há relacionamentos que o impedem de ser excluído.
+            }
+        }
+
+        [HttpPatch]
+        public IActionResult AtivarOuInativar([FromBody]int id) {
+            var situacao = _treinoRepository.AtivarOuDesativar(id);
+
+            if (situacao) {
+                return Ok(new { msg = "Treino ativado com sucesso." });
+            } else {
+                return Ok(new { msg = "Treino inativado com sucesso." });
+            }
+        }
+
     }
 }

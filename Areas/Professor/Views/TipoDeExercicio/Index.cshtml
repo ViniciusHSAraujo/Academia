@@ -24,6 +24,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model) {
+                    var txtAtivarOuInativar = item.Situacao == true ? "Inativar" : "Ativar";
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Nome)
@@ -34,9 +35,13 @@
                         <td>
                             @Html.ActionLink("Editar", "Editar", new { item.Id }, new { @class = "btn btn-warning btn-rounded" })
                             @Html.ActionLink("Detalhar", "Detalhar", new { item.Id }, new { @class = "btn btn-info btn-rounded" })
-                            <form asp-controller="Aluno" asp-action="Excluir" method="post" style="display: inline">
-                                <input name="id" value="@item.Id" class="form-control" hidden />
-                                <input type="submit" value="Excluir" class="btn btn-danger btn-rounded" />
+                            <form class="frmExclusaoTipoDeExercicio d-inline">
+                                <input name="id" id="id" value="@item.Id" class="form-control" hidden />
+                                <input type="submit" value="Excluir" class="btn btn-danger btn-rounded operacao-de-risco" />
+                            </form>
+                            <form class="frmInativacaoTipoDeExercicio d-inline">
+                                <input name="id" id="id" value="@item.Id" class="form-control" hidden />
+                                <input type="submit" value="@txtAtivarOuInativar" id="btnInativacao" class="btn btn-purple btn-rounded" />
                             </form>
                         </td>
                     </tr>
