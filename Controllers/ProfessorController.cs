@@ -6,6 +6,7 @@ using Academia.Libraries.Login;
 using Academia.Models;
 using Academia.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
 namespace Academia.Controllers {
@@ -67,6 +68,12 @@ namespace Academia.Controllers {
                                             .Select(e => e.ErrorMessage));
                 return BadRequest(new { msg = $"{mensagem}" });
             }
+        }
+
+        [HttpPatch]
+        public IActionResult Patch([FromBody]Professor professor) {
+                _professorRepository.TrocarSenha(professor);
+                return Ok(new { msg = $"Senha alterada com sucesso!" });
         }
 
         [HttpDelete]

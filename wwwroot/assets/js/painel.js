@@ -1,8 +1,8 @@
-﻿//var enderecoSite = "https://localhost:44354";
-//var enderecoAPI = "https://localhost:44354/api/v1";
+﻿var enderecoSite = "https://localhost:44354";
+var enderecoAPI = "https://localhost:44354/api/v1";
 
-var enderecoSite = "https://localhost:5001";
-var enderecoAPI = "https://localhost:5001/api/v1";
+//var enderecoSite = "https://localhost:5001";
+//var enderecoAPI = "https://localhost:5001/api/v1";
 
 var listaDeExercicios = [];
 var listaDeAgrupamentos = [];
@@ -902,6 +902,34 @@ $(".frmInativacaoTipoDeExercicio").on("submit", function (event) {
         },
         error: function (dados) {
             PopUpDeErro("Houve um erro ao tentar fazer a operação. Tente novamente.");
+        }
+    });
+});
+
+/*
+ * Formulário de Troca de Senha do Professor
+ */
+
+$("#frmTrocaDeSenha").on("submit", function (event) {
+    event.preventDefault();
+
+    var professor = {
+        Id: $("#Id").val(),
+        Senha: $("#Senha").val(),
+        ConfirmacaoSenha: $("#ConfirmacaoSenha").val()
+    }
+
+    $.ajax({
+        type: "patch",
+        url: `${enderecoAPI}/Professor`,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(professor),
+        success: function (dados) {
+            PopUpDeInformacao(dados.msg);
+        },
+        error: function (dados) {
+            PopUpDeErro(dados.responseJSON.msg);
         }
     });
 });

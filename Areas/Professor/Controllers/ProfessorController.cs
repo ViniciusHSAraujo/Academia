@@ -34,6 +34,12 @@ namespace Academia.Areas.Professor.Controllers {
             return View(professor);
         }
 
+        public IActionResult TrocarSenha(int id) {
+            var colaborador = _professorRepository.Buscar(id);
+            return View(colaborador);
+        }
+
+
         public IActionResult Detalhar(int id) {
             var professor = _professorRepository.Buscar(id);
             return View(professor);

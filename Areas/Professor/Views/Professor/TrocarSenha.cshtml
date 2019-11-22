@@ -1,0 +1,33 @@
+﻿@model Professor
+
+<div class="card-box row mt-3">
+    <div class="col-md-12">
+        <h4 class="header-title">Troca de senha do professor @Model.Nome</h4>
+        <div class="row">
+            <div class="col-md-4">
+                <form id="frmTrocaDeSenha">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="Senha" class="control-label"></label>
+                        <input asp-for="Senha" type="password" class="form-control" />
+                        <span asp-validation-for="Senha" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ConfirmacaoSenha" class="control-label"></label>
+                        <input asp-for="ConfirmacaoSenha" type="password" class="form-control" />
+                        <span asp-validation-for="ConfirmacaoSenha  " class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Trocar a senha" class="btn btn-primary" />
+                        <a asp-controller="Professor" asp-action="Editar" asp-route-id="@Model.Id" class="btn btn-warning">Voltar à edição</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @await Html.PartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml")
+}
