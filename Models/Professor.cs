@@ -8,6 +8,11 @@ using System.Text;
 
 namespace Academia.Models {
     public class Professor : Pessoa {
+
+        [Display(Name = "Sobrenome")]
+        [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
+        public string Sobrenome { get; set; }
+
         [Display(Name = "Salário")]
         [Required(ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E001")]
         [Range(0.01, 99999.99, ErrorMessageResourceType = typeof(MensagensErro), ErrorMessageResourceName = "MSG_E011")]

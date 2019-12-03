@@ -39,6 +39,7 @@ namespace Academia.Controllers {
 
         [HttpPost]
         public IActionResult Post([FromBody]Professor professor) {
+            ModelState.Remove("Celular");
             if (ModelState.IsValid) {
                 _professorRepository.Cadastrar(professor);
                 return Ok(new { msg = $"O professor {professor.Nome} foi cadastrado com sucesso!" });

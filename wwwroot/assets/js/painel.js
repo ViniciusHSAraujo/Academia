@@ -51,6 +51,7 @@ $("#frmCadastroProfessor").on("submit", function (event) {
     var professor = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
+        Sobrenome: $("#Sobrenome").val(),
         Salario: $("#Salario").val(),
         Admissao: $("#Admissao").val(),
         Demissao: $("#Demissao").val(),
@@ -107,6 +108,7 @@ $("#frmEdicaoProfessor").on("submit", function (event) {
     var professor = {
         Id: $("#Id").val(),
         Nome: $("#Nome").val(),
+        Sobrenome: $("#Sobrenome").val(),
         Salario: $("#Salario").val(),
         Admissao: $("#Admissao").val(),
         Demissao: $("#Demissao").val(),
