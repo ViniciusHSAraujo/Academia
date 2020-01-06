@@ -1,0 +1,81 @@
+﻿@model Academia.Models.Professor
+
+@{
+    ViewData["Title"] = "Minha Conta";
+}
+
+<div class="card-box mt-3">
+    <h1 class="header-title">Detalhes sobre a conta do @Model.Nome @Model.Sobrenome:</h1>
+    <hr />
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Id)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Id)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Nome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Nome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sobrenome)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Sobrenome)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Salario)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Salario.ToString("C2")
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Admissao)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.Admissao.ToShortDateString()
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Demissao)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.Demissao.HasValue) {
+                    Model.Demissao.Value.ToShortDateString();
+                }
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Turno)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Turno)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DataNascimento)
+            </dt>
+            <dd class="col-sm-10">
+                @Model.DataNascimento.ToShortDateString()
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Telefone)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Telefone)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Sexo)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Sexo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+        </dl>
+    </div>
