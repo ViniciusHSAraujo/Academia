@@ -48,6 +48,7 @@ namespace Academia {
             
             option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddScoped<Sessao>();
             services.AddScoped<LoginAluno>();
             services.AddScoped<LoginProfessor>();
@@ -70,7 +71,7 @@ namespace Academia {
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
             app.UseSession();
 
             app.UseMvc(routes => {
